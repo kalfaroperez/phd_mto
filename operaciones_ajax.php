@@ -24,29 +24,26 @@ $accion = (isset($_GET['accion'])) ? $_GET['accion'] : $_POST['accion'];
 $elemento_html =  $_POST['elemento_html'];
 
 switch ($accion) {
-  case 'prueba':
-    echo "<pre>"; print_r($_POST);echo "</pre>"; die;
-    break;
   case 'load_autocomplete_planta':
-    $term = $_GET['term'];
+    $term = $_GET['query'];
     cargar_autocomplete_planta($term);
     break;
 
   case 'load_autocomplete_equipoPrincipal':
-    $term = $_GET['term'];
+    $term = $_GET['query'];
     $id_planta = $_GET['id_planta'];
     cargar_autocomplete_equipoPrinc($id_planta, $term);
     break;
 
   case 'load_autocomplete_equipoSecundario':
-      $term = $_GET['term'];
+      $term = $_GET['query'];
       $id_planta = $_GET['id_planta'];
       $id_equipo_princ = $_GET['id_equipo_princ'];
       cargar_autocomplete_equipoSecundario($id_planta, $id_equipo_princ, $term);
       break;
 
 case 'load_autocomplete_componente':
-    $term = $_GET['term'];
+    $term = $_GET['query'];
     $id_planta = $_GET['id_planta'];
     $id_equipo_princ = $_GET['id_equipo_princ'];
     $id_equipo_sec = $_GET['id_equipo_sec'];
@@ -153,7 +150,7 @@ function cargar_autocomplete_equipoPrinc($id_planta, $term){
           while (list($k, $row) = each($data_equipos)) {
             $id = $row["id_equipo_princ"];
             $valor = $row["nombre"];
-            $data [] = array('id'=> $id, 'label' => $valor, 'value' => $valor);
+            $data [] = array('id'=> $id, 'text' => $valor, 'value' => $valor);
           }
           echo json_encode($data);
         }else{
@@ -171,7 +168,7 @@ function cargar_autocomplete_equipoSecundario($id_planta, $id_equipo_princ, $ter
           while (list($k, $row) = each($data_equipos)) {
             $id = $row["id_equipo_sec"];
             $valor = $row["nombre"];
-            $data [] = array('id'=> $id, 'label' => $valor, 'value' => $valor);
+            $data [] = array('id'=> $id, 'text' => $valor, 'value' => $valor);
           }
           echo json_encode($data);
         }else{
@@ -190,7 +187,7 @@ function cargar_autocomplete_componente($id_planta, $id_equipo_princ, $id_equipo
         while (list($k, $row) = each($data_equipos)) {
           $id = $row["id_componente"];
           $valor = $row["nombre"];
-          $data [] = array('id'=> $id, 'label' => $valor, 'value' => $valor);
+          $data [] = array('id'=> $id, 'text' => $valor, 'value' => $valor);
         }
         echo json_encode($data);
       }else{

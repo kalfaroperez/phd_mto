@@ -217,7 +217,27 @@ function clonarFileUpload() {
 
 
 function autocomplete_planta(){
-  $( "#txtPlanta").autocomplete({
+  $('#txtPlanta').select2({
+    ajax: {
+      url: "operaciones_ajax.php?accion=load_autocomplete_planta",
+      dataType: 'json',
+      data: function (params) {
+        return {
+          query: params.term, // search term
+        };
+      },
+      processResults: function (data, params) {
+        return {
+          results: data,
+        };
+      }
+    }
+  }).on('select2:select', function (e) {
+    var id_planta = e.params.data.id;
+    $("#sel_planta").attr("value", id_planta);
+    autocomplete_equipoPrincipal(id_planta);
+  });
+  /*$( "#txtPlanta").autocomplete({
       source: "operaciones_ajax.php?accion=load_autocomplete_planta",
       minLength: 2,
       select: function( event, ui ) {
@@ -225,11 +245,32 @@ function autocomplete_planta(){
         $("#sel_planta").attr("value", id_planta);
         autocomplete_equipoPrincipal(id_planta);
       }
-    });
+    });*/
 }
 
 function autocomplete_equipoPrincipal(id_planta) {
-  $( "#txtEquipoPrincipal").autocomplete({
+  $('#txtEquipoPrincipal').select2({
+    ajax: {
+      url: "operaciones_ajax.php?accion=load_autocomplete_equipoPrincipal",
+      dataType: 'json',
+      data: function (params) {
+        return {
+          query: params.term, // search term
+          id_planta: id_planta
+        };
+      },
+      processResults: function (data, params) {
+        return {
+          results: data,
+        };
+      }
+    }
+  }).on('select2:select', function (e) {
+    var id_equipo_princ = e.params.data.id;
+    $("#sel_equipo_princ").attr("value", id_equipo_princ);
+    autocomplete_equipoSecundario(id_planta, id_equipo_princ);
+  });
+  /*$( "#txtEquipoPrincipal").autocomplete({
       source: "operaciones_ajax.php?accion=load_autocomplete_equipoPrincipal&id_planta="+id_planta ,
       minLength: 2,
       select: function( event, ui ) {
@@ -237,11 +278,33 @@ function autocomplete_equipoPrincipal(id_planta) {
         $("#sel_equipo_princ").attr("value", id_equipo_princ);
         autocomplete_equipoSecundario(id_planta, id_equipo_princ);
       }
-    });
+    });*/
 }
 
 function autocomplete_equipoSecundario(id_planta, id_equipo_princ) {
-  $( "#txtEquipoSecundario").autocomplete({
+  $('#txtEquipoSecundario').select2({
+    ajax: {
+      url: "operaciones_ajax.php?accion=load_autocomplete_equipoSecundario",
+      dataType: 'json',
+      data: function (params) {
+        return {
+          query: params.term, // search term
+          id_planta: id_planta,
+          id_equipo_princ : id_equipo_princ
+        };
+      },
+      processResults: function (data, params) {
+        return {
+          results: data,
+        };
+      }
+    }
+  }).on('select2:select', function (e) {
+    var id_equipo_sec = e.params.data.id;
+    $("#sel_equipo_sec").attr("value", id_equipo_sec);
+    autocomplete_Componente(id_planta, id_equipo_princ, id_equipo_sec);
+  });
+  /*$( "#txtEquipoSecundario").autocomplete({
       source: "operaciones_ajax.php?accion=load_autocomplete_equipoSecundario&id_planta="+id_planta+"&id_equipo_princ="+id_equipo_princ,
       minLength: 2,
       select: function( event, ui ) {
@@ -249,11 +312,33 @@ function autocomplete_equipoSecundario(id_planta, id_equipo_princ) {
         $("#sel_equipo_sec").attr("value", id_equipo_sec);
         autocomplete_Componente(id_planta, id_equipo_princ, id_equipo_sec);
       }
-    });
+    });*/
 }
 
 function autocomplete_Componente(id_planta, id_equipo_princ, id_equipo_sec) {
-  $( "#txtComponente").autocomplete({
+  $('#txtComponente').select2({
+    ajax: {
+      url: "operaciones_ajax.php?accion=load_autocomplete_componente",
+      dataType: 'json',
+      data: function (params) {
+        return {
+          query: params.term, // search term
+          id_planta: id_planta,
+          id_equipo_princ : id_equipo_princ,
+          id_equipo_sec: id_equipo_sec
+        };
+      },
+      processResults: function (data, params) {
+        return {
+          results: data,
+        };
+      }
+    }
+  }).on('select2:select', function (e) {
+    var id_componente = e.params.data.id;
+    $("#sel_componente").attr("value", id_componente);
+  });
+  /*$( "#txtComponente").autocomplete({
       source: "operaciones_ajax.php?accion=load_autocomplete_componente&id_planta="+id_planta+"&id_equipo_princ="+id_equipo_princ+"&id_equipo_sec="+id_equipo_sec,
       minLength: 2,
       select: function( event, ui ) {
@@ -261,7 +346,7 @@ function autocomplete_Componente(id_planta, id_equipo_princ, id_equipo_sec) {
           $("#sel_componente").attr("value", id_componente);
       }
 
-    });
+    });*/
 }
 
 

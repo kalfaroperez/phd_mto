@@ -19,6 +19,7 @@
 
 <!--<link rel="stylesheet" href="jquery-ui.css">-->
 <link href="css/base/jquery-ui-1.9.2.custom.css" rel="stylesheet">
+<link href="plugins/select2/dist/css/select2.min.css" rel="stylesheet" />
 <style>
     .ui-autocomplete {
       max-height: 100px;
@@ -363,9 +364,14 @@ while ( $row = mysql_fetch_array ( $result ) ) {
           <tr>
               <!--td>Planta</td-->
               <td>
-                <div class="ui-widget">
+                <div class="">
                   <label for="txtPlanta">Area: </label>
+                  <select id='txtPlanta' name="planta" style="width: 50%">
+                    <option value="">Select one...</option>
+                  </select>
+                  <!--
                   <input id='txtPlanta' class="ui-autocomplete-input" />
+                  -->
                 </div>
                   <!--<select id="sel_planta_ti" name="sel_planta"  class="combobox_equipos" accion_selec="seleccion_planta" onchange="cargar_select_equipo_princ_ticket();">
                       <option value=0> Seleccione...</option> -->
@@ -392,8 +398,11 @@ while ( $row = mysql_fetch_array ( $result ) ) {
               <td>
 
                   <div class="ui-widget">
-                    <label for="txtEquipoPrincipal">Equipo Principal: </label>
-                    <input id='txtEquipoPrincipal' class="ui-autocomplete-input" />
+                    <label for="txtEquipoPrincipal" >Equipo Principal: </label>
+                    <select id='txtEquipoPrincipal' name="planta" style="width: 50%">
+                      <option value="">Select one...</option>
+                    </select>
+                    <!--<input id='txtEquipoPrincipal' class="ui-autocomplete-input" />-->
                   </div>
                   <!--
                   <select id="sel_equipo_princ_ti" name="sel_equipo_princ"  class="combobox_equipos" accion_selec="seleccion_equipo_principal" onchange="cargar_select_equipo_sec_ticket();">
@@ -407,7 +416,10 @@ while ( $row = mysql_fetch_array ( $result ) ) {
             <td>
               <div class="ui-widget">
                 <label for="txtEquipoSecundario">Equipo Secundario:</label>
-                <input id='txtEquipoSecundario' class="ui-autocomplete-input" />
+                <select id='txtEquipoSecundario' name="planta" style="width: 50%">
+                  <option value="">Select one...</option>
+                </select>
+                <!--<input id='txtEquipoSecundario' class="ui-autocomplete-input" />-->
               </div>
                 <!--
                 <select id="sel_equipo_sec_ti" name="sel_equipo_sec" class="combobox_equipos"  accion_selec="seleccion_equipo_secundario" onchange="cargar_select_componente_ticket();">
@@ -420,7 +432,10 @@ while ( $row = mysql_fetch_array ( $result ) ) {
 
               <div class="ui-widget">
                 <label for="txtComponente">Componentes:</label>
-                <input id='txtComponente' class="ui-autocomplete-input" />
+                <select id='txtComponente' name="planta" style="width: 50%">
+                  <option value="">Select one...</option>
+                </select>
+                <!--<input id='txtComponente' class="ui-autocomplete-input" />-->
               </div>
                 <!--
                 <select id="sel_componente_ti" name="sel_componente" class="combobox_equipos"  accion_selec="cargar_componentes">
@@ -440,6 +455,7 @@ while ( $row = mysql_fetch_array ( $result ) ) {
       <input type='hidden' id="sel_componente" name='sel_componente' />
 
       <script src="js/jquery-2.1.0.min.js"></script>
+      <script src="plugins/select2/dist/js/select2.min.js"></script>
       <script src="js/jquery-ui-1.9.2.custom.js"></script>
       <script type="text/javascript" src="web_script.js"></script>
 

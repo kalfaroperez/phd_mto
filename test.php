@@ -17,7 +17,7 @@
             <option value="">Select one...</option>
           </select>
         </div>
-<!--
+
         <div class="ui-widget">
           <label for="txtEquipoPrincipal">Equipo Principal: </label>
           <input id='txtEquipoPrincipal' class="ui-autocomplete-input" />
@@ -32,7 +32,7 @@
           <label for="txtComponente">Componentes:</label>
           <input id='txtComponente' class="ui-autocomplete-input" />
         </div>
--->
+
         <input type='hidden' id="sel_planta" name='sel_planta' />
         <input type='hidden' id="sel_equipo_princ"  name='sel_equipo_princ' />
         <input type='hidden' id="sel_equipo_sec" name='sel_equipo_sec' />
@@ -45,13 +45,12 @@
         <script type="text/javascript">
 
           $('#txtPlanta').select2({
-
             ajax: {
               url: "operaciones_ajax.php?accion=load_autocomplete_planta",
               dataType: 'json',
               data: function (params) {
                 return {
-                  q: params.term, // search term
+                  query: params.term, // search term
                 };
               },
               processResults: function (data, params) {
@@ -60,8 +59,28 @@
                 };
               }
             }
+          }).on('select2:select', function (e) {
+            $("#sel_planta").attr("value",e.params.data.id);
           });
 
+          $('#txtEquipoPrincipal').select2({
+            ajax: {
+              url: "operaciones_ajax.php?accion=load_autocomplete_equipoPrincipal",
+              dataType: 'json',
+              data: function (params) {
+                return {
+                  query: params.term, // search term
+                };
+              },
+              processResults: function (data, params) {
+                return {
+                  results: data,
+                };
+              }
+            }
+          }).on('select2:select', function (e) {
+            $("#sel_planta").attr("value",e.params.data.id);
+          });
 
 
         </script>
