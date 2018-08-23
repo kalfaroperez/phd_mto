@@ -116,10 +116,12 @@ if (isSet ( $_POST ['modificar'] ) or isSet ( $_GET ['modificar'] )) {
 				$prioridad = $_SESSION ['PHD_PRIORIDAD'] = $row ['prioridad'];
 				$asignado_a = $_SESSION ['PHD_ASIGNADO_A'] = $row ['asignado_a'];
 				$fecha_ultimo_estado = $_SESSION ['PHD_FECHA_ULTIMO_ESTADO'] = date ( "$Date_format H:i:s", strtotime ( $row ['fecha_ultimo_estado'] ) );
-				$fecha_entrega = $_SESSION ['PHD_FECHA_ENTREGA'] =  date ( "$Date_format", strtotime ( $row ['fecha_entrega'] ) );//date ( "Y/m/d", strtotime ( $row ['fecha_entrega'] ) );
+
 				$_SESSION ['PHD_SEQ_SOLICITUD_ID'] = $row ['seq_solicitud_id'];
 				$calificacion = $_SESSION ['PHD_CALIFICACION'] = $row['calificacion'];
 				$nivel =$_SESSION ['PHD_NIVEL'];
+
+				$fecha_entrega = $_SESSION ['PHD_FECHA_ENTREGA'] = ($row ['fecha_entrega'] == "") ? "" : date ( "$Date_format", strtotime ($row ['fecha_entrega']));//date ( "Y/m/d", strtotime ( $row ['fecha_entrega'] ) );
 
 
 //echo "<pre>";print_r($_SESSION);echo "</pre>";die;
