@@ -126,7 +126,7 @@ $operador_ultimo_estado = $operador;
 
 //Adjunto
 $file = $_FILES;
-$target_dir = $_SERVER['DOCUMENT_ROOT']."/phd_mto/uploads/";
+$target_dir = "D:/uploads/"; //"$_SERVER['DOCUMENT_ROOT']."/phd_mto/uploads/";
 $ruta_adjunto = $target_file = $target_dir . basename($file["adjunto"]["name"]);
 $nombre_adjunto = basename($file["adjunto"]["name"]);
 $tipo_adjunto = $_FILES ["adjunto"] ["type"];
@@ -388,7 +388,7 @@ else // # No hubo errores, guardo el registro
 	// Check if the ticket was assined to send an e-mail to the assigned operator.
 	guardarArchivoAdjunto_onServer($_FILES, $seq_ticket_id);
 
-	if (strlen ( asignado_a ) > 0) {
+	if (strlen ( $asignado_a ) > 0) {
 		send_ticket ( $asignado_a, $seq_ticket_id, $Filtro_ticket );
 	}
 
@@ -415,7 +415,7 @@ function guardarArchivoAdjunto_onServer($files, $seq_ticket_id){
 
 	if ($files['adjunto']) {
 	    $file_ary = reArrayFiles($files['adjunto']);
-      $dir_upload = $_SERVER['DOCUMENT_ROOT']."/phd_mto/uploads/".$seq_ticket_id."/";
+      $dir_upload = "D:/uploads/".$seq_ticket_id."/"; //$_SERVER['DOCUMENT_ROOT']."/phd_mto/uploads/".$seq_ticket_id."/";
       mkdir($dir_upload, 0777);
 	    foreach ($file_ary as $file) {
 				$target_dir = $dir_upload;

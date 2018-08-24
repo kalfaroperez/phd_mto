@@ -20,6 +20,10 @@ $query="SELECT seq_ticket_id, fecha, usuario_id, ape_y_nom, area_id, incidente,
         estado, fecha_ultimo_estado, prioridad
         FROM {$MyPHD}ticket
         $condicion ORDER BY $orden $sentido LIMIT $desde_reg, $_SESSION[PHD_MAX_LINES_SCREEN]";
+/*
+echo "GET<br/><pre>";print_r($query); echo "<pre>";
+echo "GET<br/><pre>";print_r($_SESSION); echo "<pre>";
+echo "<br/>POST<br/><pre>";print_r($_POST); echo "<pre>";die;*/
 
 $result=mysql_query($query) or die (mysql_error());
 

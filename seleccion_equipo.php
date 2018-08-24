@@ -29,24 +29,24 @@
     <form action="seleccion_equipo.php" method="post">
 
         <div class="ui-widget">
-          <select id='txtPlanta' name="planta">
+          <select id='cbxPlanta' name="planta">
             <option value="">Select one...</option>
           </select>
         </div>
 
         <div class="ui-widget">
-          <label for="txtEquipoPrincipal">Equipo Principal: </label>
-          <input id='txtEquipoPrincipal' class="ui-autocomplete-input" />
+          <label for="cbxEquipoPrincipal">Equipo Principal: </label>
+          <input id='cbxEquipoPrincipal' class="ui-autocomplete-input" />
         </div>
 
         <div class="ui-widget">
-          <label for="txtEquipoSecundario">Equipo Secundario:</label>
-          <input id='txtEquipoSecundario' class="ui-autocomplete-input" />
+          <label for="cbxEquipoSecundario">Equipo Secundario:</label>
+          <input id='cbxEquipoSecundario' class="ui-autocomplete-input" />
         </div>
 
         <div class="ui-widget">
-          <label for="txtComponente">Componentes:</label>
-          <input id='txtComponente' class="ui-autocomplete-input" />
+          <label for="cbxComponente">Componentes:</label>
+          <input id='cbxComponente' class="ui-autocomplete-input" />
         </div>
 
         <input type='hidden' id="sel_planta" name='sel_planta' />

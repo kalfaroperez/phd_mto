@@ -24,9 +24,10 @@ if (! isset ( $_SESSION ['PHD_NIVEL'] ) or $_SESSION ['PHD_NIVEL'] < 10) {
 // # las distintas opciones de los atributos, usuarios, etc.
 // Connect with the data base to be able to select
 // the different options from the attributes, users, etc.
-
+global $Host,$Usuario,$Contrasena, $Base;
 $Conect = mysql_connect ( $Host, $Usuario, $Contrasena ) or die ( mysql_error () );
 $Uso = mysql_select_db ( $Base ) or die ( mysql_error () );
+require ('operaciones_sql.php');
 
 $opcion = $Advanced_query;
 
@@ -34,6 +35,38 @@ if (count ( $_POST ) == 0 and count ( $_GET ) == 0) {
 	require ($Include . 'consulta_param.inc');
 	exit ();
 } elseif (count ( $_POST ) != 0) {
+	if (isset($_POST['sel_planta']) && !empty($_POST['sel_planta']) && $_POST['sel_planta'] != 0) {
+		$data = getPlantaByID($_POST['sel_planta']);
+		if (!empty($data)) {
+			list($k, $row) = each($data);
+			$nombre_planta = $row['nombre_planta'];
+		}
+	}
+	
+	if (isset($_POST['sel_equipo_princ']) && !empty($_POST['sel_equipo_princ']) && $_POST['sel_equipo_princ'] != 0) {
+		$data = getEquipoPrincipalByID($_POST['sel_equipo_princ']);
+		if (!empty($data)) {
+			list($k, $row) = each($data);
+			$nombre_equipo_princ = $row['nombre_equipo_princ'];
+		}
+	}
+
+	if (isset($_POST['sel_equipo_sec']) && !empty($_POST['sel_equipo_sec']) && $_POST['sel_equipo_sec'] != 0) {
+		$data = getEquipoSecundarioByID($_POST['sel_equipo_sec']);
+		if (!empty($data)) {
+			list($k, $row) = each($data);
+			$nombre_equipo_sec = $row['nombre_equipo_sec'];
+		}
+	}
+
+	if (isset($_POST['sel_componente']) && !empty($_POST['sel_componente']) && $_POST['sel_componente'] != 0) {
+		$data = getComponenteByID($_POST['sel_componente']);
+		if (!empty($data)) {
+			list($k, $row) = each($data);
+			$nombre_componente = $row['nombre_componente'];
+		}
+	}
+
 	require ($Include . 'consulta_condition.inc');
 } elseif (count ( $_GET ) != 0) {
 	$condicion = $_SESSION ['PHD_CONDICION'];
@@ -55,7 +88,6 @@ if ($q_registros == 0) {
 }
 
 if (isset ( $_POST [buscar] ) or isset ( $_GET [pagina] )) {
-
 	include ($Include . 'c_screen.inc');
 } elseif (isset ( $_POST ['exportar'] )) {
 	include ($Include . 'c_export.inc');

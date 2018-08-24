@@ -77,7 +77,7 @@ function clonarFileUpload() {
 
 
 function autocomplete_planta(){
-  $('#txtPlanta').select2({
+  $('#cbxPlanta').select2({
     ajax: {
       url: "operaciones_ajax.php?accion=load_autocomplete_planta",
       dataType: 'json',
@@ -97,7 +97,7 @@ function autocomplete_planta(){
     $("#sel_planta").attr("value", id_planta);
     autocomplete_equipoPrincipal(id_planta);
   });
-  /*$( "#txtPlanta").autocomplete({
+  /*$( "#cbxPlanta").autocomplete({
       source: "operaciones_ajax.php?accion=load_autocomplete_planta",
       minLength: 2,
       select: function( event, ui ) {
@@ -109,7 +109,7 @@ function autocomplete_planta(){
 }
 
 function autocomplete_equipoPrincipal(id_planta) {
-  $('#txtEquipoPrincipal').select2({
+  $('#cbxEquipoPrincipal').select2({
     ajax: {
       url: "operaciones_ajax.php?accion=load_autocomplete_equipoPrincipal",
       dataType: 'json',
@@ -130,7 +130,7 @@ function autocomplete_equipoPrincipal(id_planta) {
     $("#sel_equipo_princ").attr("value", id_equipo_princ);
     autocomplete_equipoSecundario(id_planta, id_equipo_princ);
   });
-  /*$( "#txtEquipoPrincipal").autocomplete({
+  /*$( "#cbxEquipoPrincipal").autocomplete({
       source: "operaciones_ajax.php?accion=load_autocomplete_equipoPrincipal&id_planta="+id_planta ,
       minLength: 2,
       select: function( event, ui ) {
@@ -142,7 +142,7 @@ function autocomplete_equipoPrincipal(id_planta) {
 }
 
 function autocomplete_equipoSecundario(id_planta, id_equipo_princ) {
-  $('#txtEquipoSecundario').select2({
+  $('#cbxEquipoSecundario').select2({
     ajax: {
       url: "operaciones_ajax.php?accion=load_autocomplete_equipoSecundario",
       dataType: 'json',
@@ -164,7 +164,7 @@ function autocomplete_equipoSecundario(id_planta, id_equipo_princ) {
     $("#sel_equipo_sec").attr("value", id_equipo_sec);
     autocomplete_Componente(id_planta, id_equipo_princ, id_equipo_sec);
   });
-  /*$( "#txtEquipoSecundario").autocomplete({
+  /*$( "#cbxEquipoSecundario").autocomplete({
       source: "operaciones_ajax.php?accion=load_autocomplete_equipoSecundario&id_planta="+id_planta+"&id_equipo_princ="+id_equipo_princ,
       minLength: 2,
       select: function( event, ui ) {
@@ -176,7 +176,7 @@ function autocomplete_equipoSecundario(id_planta, id_equipo_princ) {
 }
 
 function autocomplete_Componente(id_planta, id_equipo_princ, id_equipo_sec) {
-  $('#txtComponente').select2({
+  $('#cbxComponente').select2({
     ajax: {
       url: "operaciones_ajax.php?accion=load_autocomplete_componente",
       dataType: 'json',
@@ -198,7 +198,7 @@ function autocomplete_Componente(id_planta, id_equipo_princ, id_equipo_sec) {
     var id_componente = e.params.data.id;
     $("#sel_componente").attr("value", id_componente);
   });
-  /*$( "#txtComponente").autocomplete({
+  /*$( "#cbxComponente").autocomplete({
       source: "operaciones_ajax.php?accion=load_autocomplete_componente&id_planta="+id_planta+"&id_equipo_princ="+id_equipo_princ+"&id_equipo_sec="+id_equipo_sec,
       minLength: 2,
       select: function( event, ui ) {

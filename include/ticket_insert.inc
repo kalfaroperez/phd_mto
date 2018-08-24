@@ -159,7 +159,7 @@
       <td> <?php echo $Area; ?>: <input type='text' name='area_id' id='area_id' value='<?php echo $area_id; ?>' size='15' maxlength='15' > </td>
      </tr>
 
-<tr>
+     <tr>
        <td colspan='3'>
         <table  width='100%' cellpadding='2' cellspacing='1' align='center' >
          <tr>
@@ -173,15 +173,15 @@
       </tr>
 
       <tr>
-        <td colspan='3' align='center' class='error' ><span id='alert'></span>
+        <td colspan='3' align='center' class='error' >
+          <span id='alert'></span>
         </td>
-       </tr>
-
+      </tr>
    </table>
 
     <table border='0' width='95%' cellpadding='3' cellspacing='1' align='center' >
-       <tr> <td colspan='2'> <strong><?php echo $Ticket_information;  ?></strong> </td>
-
+       <tr>
+         <td colspan='2'> <strong><?php echo $Ticket_information;  ?></strong> </td>
        </tr>
        <tr>
         <td style="width:10%"> <?php echo $Incident; ?>: </td>
@@ -193,47 +193,46 @@
 
      </div>
      <div id='div_admin' style='display:block'>
-
-
-     <table border='0' width='95%' cellpadding='3' cellspacing='1' align='center' >
-     <tr> <td  style='width:10%'> <?php echo $Comment; ?>: </td>
-      <td <td  style='width:90%'>
-        <TEXTAREA name='comentario' rows='4' cols='130'><?php echo $comentario ?></TEXTAREA>
-      </td>
-     </tr>
-    <tr>
-    <td><?php echo $Attach_file; ?>: </td>
-        <td>
-          <div class="container">
-            <div class="row files" id="files1">
-              <div id='div_0'>
-                <input type='file' id="adjunto1" class="fileUpload" name='adjunto[]' maxlength='120'> (Max. <?php echo $text_max_attach; ?>)
-                &nbsp;<input type="button" class="button" name="" value="+">
+        <table border='0' width='95%' cellpadding='3' cellspacing='1' align='center' >
+       <tr>
+        <td  style='width:10%'> <?php echo $Comment; ?>: </td>
+        <td <td  style='width:90%'>
+          <TEXTAREA name='comentario' rows='4' cols='130'><?php echo $comentario ?></TEXTAREA>
+        </td>
+       </tr>
+        <tr>
+        <td><?php echo $Attach_file; ?>: </td>
+            <td>
+              <div class="container">
+                <div class="row files" id="files1">
+                  <div id='div_0'>
+                    <input type='file' id="adjunto1" class="fileUpload" name='adjunto[]' maxlength='120'> (Max. <?php echo $text_max_attach; ?>)
+                    &nbsp;<input type="button" class="button" name="" value="+">
+                  </div>
+                </div>
               </div>
-            </div>
-          </div>
-        </td>
-    </tr>
-    <tr>
-        <td>&nbsp;</td>
-        <td>
+            </td>
+        </tr>
+        <tr>
+            <td>&nbsp;</td>
+            <td>
 
-          <!--
-          <div id="div_adjuntos">
-            <ul id='ul_adjuntos'>
-            </ul>
-          </div>
-        -->
+              <!--
+              <div id="div_adjuntos">
+                <ul id='ul_adjuntos'>
+                </ul>
+              </div>
+            -->
 
-        </td>
-    </tr>
-    </table>
+            </td>
+        </tr>
+        </table>
 
-<br />
-<table  width='95%' cellpadding='3' cellspacing='1' align='center' >
-      <tr>
-        <td><?php echo $Priority; ?>:
-          <select name='prioridad'>
+    <br />
+    <table  width='95%' cellpadding='3' cellspacing='1' align='center' >
+          <tr>
+            <td><?php echo $Priority; ?>:
+              <select name='prioridad'>
 
 <?php
 
@@ -328,7 +327,7 @@ while ( $row = mysql_fetch_array ( $result ) ) {
       'Obra Civil' => 'Obra Civil',
       'Metalmecanico' => 'Metalmecanico',
       'Soldadura' => 'Soldadura',); ?>
-     <td> Tipo de Trabajo:
+     <td> $Tipo_de_Trabajo:
        <select id="tipo_trabajo" name="tipo_trabajo">
           <option value='0'>Seleccione...</option>
           <?php
@@ -365,12 +364,12 @@ while ( $row = mysql_fetch_array ( $result ) ) {
               <!--td>Planta</td-->
               <td>
                 <div class="">
-                  <label for="txtPlanta">Area: </label>
-                  <select id='txtPlanta' name="planta" style="width: 50%">
+                  <label for="cbxPlanta"><?php echo $Planta_Text; ?> : </label>
+                  <select id='cbxPlanta' name="planta" style="width: 50%">
                     <option value="">Select one...</option>
                   </select>
                   <!--
-                  <input id='txtPlanta' class="ui-autocomplete-input" />
+                  <input id='cbxPlanta' class="ui-autocomplete-input" />
                   -->
                 </div>
                   <!--<select id="sel_planta_ti" name="sel_planta"  class="combobox_equipos" accion_selec="seleccion_planta" onchange="cargar_select_equipo_princ_ticket();">
@@ -398,11 +397,11 @@ while ( $row = mysql_fetch_array ( $result ) ) {
               <td>
 
                   <div class="ui-widget">
-                    <label for="txtEquipoPrincipal" >Equipo Principal: </label>
-                    <select id='txtEquipoPrincipal' name="planta" style="width: 50%">
+                    <label for="cbxEquipoPrincipal" ><?php echo $Equipo_Principal_Text; ?> : </label>
+                    <select id='cbxEquipoPrincipal' name="planta" style="width: 50%">
                       <option value="">Select one...</option>
                     </select>
-                    <!--<input id='txtEquipoPrincipal' class="ui-autocomplete-input" />-->
+                    <!--<input id='cbxEquipoPrincipal' class="ui-autocomplete-input" />-->
                   </div>
                   <!--
                   <select id="sel_equipo_princ_ti" name="sel_equipo_princ"  class="combobox_equipos" accion_selec="seleccion_equipo_principal" onchange="cargar_select_equipo_sec_ticket();">
@@ -415,11 +414,11 @@ while ( $row = mysql_fetch_array ( $result ) ) {
             <!--td>Equipo Secundario</td-->
             <td>
               <div class="ui-widget">
-                <label for="txtEquipoSecundario">Equipo Secundario:</label>
-                <select id='txtEquipoSecundario' name="planta" style="width: 50%">
+                <label for="cbxEquipoSecundario"><?php echo $Equipo_Secundario_Text; ?> :</label>
+                <select id='cbxEquipoSecundario' name="planta" style="width: 50%">
                   <option value="">Select one...</option>
                 </select>
-                <!--<input id='txtEquipoSecundario' class="ui-autocomplete-input" />-->
+                <!--<input id='cbxEquipoSecundario' class="ui-autocomplete-input" />-->
               </div>
                 <!--
                 <select id="sel_equipo_sec_ti" name="sel_equipo_sec" class="combobox_equipos"  accion_selec="seleccion_equipo_secundario" onchange="cargar_select_componente_ticket();">
@@ -431,11 +430,11 @@ while ( $row = mysql_fetch_array ( $result ) ) {
             <td>
 
               <div class="ui-widget">
-                <label for="txtComponente">Componentes:</label>
-                <select id='txtComponente' name="planta" style="width: 50%">
+                <label for="cbxComponente"><?php echo $Componente_Text; ?> :</label>
+                <select id='cbxComponente' name="planta" style="width: 50%">
                   <option value="">Select one...</option>
                 </select>
-                <!--<input id='txtComponente' class="ui-autocomplete-input" />-->
+                <!--<input id='cbxComponente' class="ui-autocomplete-input" />-->
               </div>
                 <!--
                 <select id="sel_componente_ti" name="sel_componente" class="combobox_equipos"  accion_selec="cargar_componentes">

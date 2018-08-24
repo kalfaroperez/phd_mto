@@ -20,6 +20,7 @@
 
 // # inicializo las variables
 // inicializig variables
+
 unset ( $_SESSION ['PHD_MAIN_CONS'] );
 $mensaje = "";
 
@@ -75,35 +76,35 @@ if (strlen ( $operador ) > 0) {
 	$titulo .= " <b>$Operator:</b> $operador,";
 }
 
-if (strlen ( $operador_sector_id ) > 0) {
+/*if (strlen ( $operador_sector_id ) > 0) {
 	$condicion .= "operador_sector_id='$operador_sector_id' AND ";
 	$titulo .= " <b>$Sector $Operator:</b> $operador_sector_id,";
-}
+}*/
 
-if (strlen ( $contacto ) > 0) {
+/*if (strlen ( $contacto ) > 0) {
 	$condicion .= "contacto='$contacto' AND ";
 	$titulo .= " <b>$Contact:</b> $contacto,";
-}
+}*/
 
 if (strlen ( $usuario ) > 0) {
 	$condicion .= "usuario_id='$usuario' AND ";
 	$titulo .= " <b>$User:</b> $usuario,";
 }
 
-if (strlen ( $area_id ) > 0) {
+/*if (strlen ( $area_id ) > 0) {
 	$condicion .= "area_id='$area_id' AND ";
 	$titulo .= " <b>$Area:</b> $area_id,";
-}
+}*/
 
 if (strlen ( $asignado_a ) > 0) {
 	$condicion .= "asignado_a='$asignado_a' AND ";
 	$titulo .= " <b>$Assigned_to:</b> $asignado_a,";
 }
 
-if (strlen ( $asignado_a_sector ) > 0) {
+/*if (strlen ( $asignado_a_sector ) > 0) {
 	$condicion .= "asignado_a_sector='$asignado_a_sector' AND ";
 	$titulo .= " <b>$Assigned_to $Sector:</b> $asignado_a_sector,";
-}
+}*/
 
 if (strlen ( $prioridad ) > 0) {
 	$condicion .= "prioridad='$prioridad' AND ";
@@ -119,24 +120,66 @@ if (strlen ( $proceso ) > 0) {
 	$titulo .= " <b>$Process:</b> $proceso,";
 }
 
-if (strlen ( $tipo ) > 0) {
-	$condicion .= "tipo='$tipo' AND ";
-	$titulo .= " <b>$Type:</b> $tipo,";
+if (strlen ( $tipo_trabajo ) > 0 && $tipo_trabajo != '0') {
+	$condicion .= "tipo_trabajo='$tipo_trabajo' AND ";
+	$titulo .= " <b>$Tipo_de_Trabajo:</b> $tipo_trabajo,";
 }
 
-if (strlen ( $sub_tipo ) > 0) {
+if (strlen ( $sel_planta ) > 0) {
+	/*$data = getPlantaByID($sel_planta);
+	if (!empty($data)) {
+		list($k, $planta) = each($data);
+		$nombre_planta = $planta['nombre_planta'];
+	}*/
+
+	$condicion .= "id_planta='$sel_planta' AND ";
+	$titulo .= " <b>$Planta_Text:</b> $nombre_planta,";
+}
+
+if (strlen ( $sel_equipo_princ ) > 0) {
+	/*$data = getEquipoPrincipalByID($sel_equipo_princ);
+	if (!empty($data)) {
+		list($k, $row) = each($data);
+		$nombre_equipo_princ = $row['nombre_equipo_princ'];
+	}*/
+
+	$condicion .= "id_equipo_princ='$sel_equipo_princ' AND ";
+	$titulo .= " <b>$Equipo_Principal_Text:</b> $nombre_equipo_princ,";
+}
+
+if (strlen ( $sel_equipo_sec ) > 0) {
+	/*$data = getEquipoSecundarioByID($sel_equipo_sec);
+	if (!empty($data)) {
+		list($k, $row) = each($data);
+		$nombre_equipo_sec = $row['nombre_equipo_sec'];
+	}*/
+	$condicion .= "id_equipo_sec='$sel_equipo_sec' AND ";
+	$titulo .= " <b>$Equipo_Secundario_Text:</b> $nombre_equipo_sec,";
+}
+
+if (strlen ( $sel_componente ) > 0) {
+	$data = getComponenteByID($sel_componente);
+	if (!empty($data)) {
+		list($k, $row) = each($data);
+		$nombre_componente = $row['nombre_componente'];
+	}
+	$condicion .= "id_componente='$sel_componente' AND ";
+	$titulo .= " <b>$Componente_Text:</b> $nombre_componente,";
+}
+
+/*if (strlen ( $sub_tipo ) > 0) {
 	$condicion .= "sub_tipo='$sub_tipo' AND ";
 	$titulo .= " <b>$Subtype:</b> $sub_tipo,";
-}
-
-if ($calificacion  != 'SIN_CALIFICAR') {
-	$condicion .= "calificacion='$calificacion' AND ";
-	$titulo .= " <b>$Calificacion_txt:</b> $calificacion,";
-}
+}*/
 
 if (strlen ( $estado ) > 0) {
 	$condicion .= "estado='$estado' AND ";
 	$titulo .= " <b>$State:</b> $estado,";
+}
+
+if ($calificacion  != '0') {
+	$condicion .= "calificacion='$calificacion' AND ";
+	$titulo .= " <b>$Calificacion_txt:</b> $calificacion,";
 }
 
 if (strlen ( $fecha_ue_desde ) > 0) {
@@ -175,7 +218,8 @@ if (strlen ( $mensaje ) > 1) {
 // # Armo el WHERE de la consulta
 // make the WHERE of the query
 
-$condicion = " WHERE $Filtro_ticket AND " . $condicion;
+//$condicion = " WHERE $Filtro_ticket AND " . $condicion;
+$condicion = " WHERE $condicion";
 $titulo = strlen ( $titulo ) > strlen ( $Query_head ) ? substr ( $titulo, 0, strlen ( $titulo ) - 1 ) . "." : "";
 // # Saco el �ltimo AND de la cadena $condicion y armo la consulta
 $_SESSION ['PHD_CONDICION'] = $condicion = substr ( $condicion, 0, (strlen ( $condicion ) - 5) );
@@ -183,6 +227,9 @@ $_SESSION ['PHD_TITULO'] = $titulo;
 
 // # cuento cu�ntos registros arroja la consulta
 // Count the rows of the query
+global $Host,$Usuario,$Contrasena, $Base;
+$Conect=mysql_connect($Host,$Usuario,$Contrasena) or die (mysql_error());
+$Uso=mysql_select_db($Base) or die (mysql_error());
 
 $query = "SELECT COUNT(*) AS cuantos
             FROM {$MyPHD}ticket $condicion";

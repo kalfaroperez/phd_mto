@@ -28,8 +28,12 @@
 // END OF DATABASE VALUES
 
 ## Mensajes varios.
-    $Planta_Text = "Planta";
+    $Tipo_de_Trabajo = "Tipo de Trabajo";
+    $Planta_Text = "Area";
     $Equipo_Principal_Text = "Equipo Principal";
+    $Equipo_Secundario_Text = "Equipo Secundario";
+    $Componente_Text = "Componente";
+
     $And_press="y presione";
     $Alert_assign_head="Aviso: se asigno; el ticket #%1% a (%2%) - %3%";
     $Alert_tickets="tiene tickets en estado %1%";

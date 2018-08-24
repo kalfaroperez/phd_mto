@@ -24,7 +24,7 @@ $options = "";
 $select_calificacion = "";
 //Obtengo el array de calificaciones
 $calificaciones = get_array_calificaciones();
-
+$options .= "<option value='0'>Seleccione...</option> ";
 foreach ( $calificaciones as $key => $value ) {
 	$seleccionado = ($calificacion == $key) ? "selected" : "";
 	$options .= <<<HTML
@@ -62,7 +62,7 @@ $To: <INPUT type='text' name='fecha_hasta' size='10' maxlength='10' > ($Date_tex
 <?php
 
 //Muestra consultas es ususario administrador
-if ($_SESSION['PHD_NIVEL']=="20") {
+//if ($_SESSION['PHD_NIVEL']=="20") {
 
 
 echo "
@@ -73,10 +73,9 @@ $Input_by:  </td> <td> <select name='operador'>
 
 // # Busco en la tabla 'operador' lo operadores.
 // Search in the table 'operador' the operators.
-
+//WHERE sector_id='$_SESSION[PHD_SECTOR_ID]' OR privado='N'
 $query = "SELECT operador_id, ape_y_nom
                 FROM {$MyPHD}operador
-                WHERE sector_id='$_SESSION[PHD_SECTOR_ID]' OR privado='N'
                 ORDER BY operador_id";
 $result = mysql_query ( $query ) or die ( mysql_error () );
 
@@ -84,7 +83,7 @@ while ( $row = mysql_fetch_array ( $result ) ) {
 	echo "<OPTION value='$row[operador_id]'> $row[operador_id] - $row[ape_y_nom] </OPTION> \n";
 }
 
-echo "</select>
+/*echo "</select>
 &nbsp;&nbsp; &nbsp; &nbsp;
 $Sector: <select name='operador_sector_id'>
     <option></option> \n";
@@ -100,36 +99,19 @@ $result = mysql_query ( $query ) or die ( mysql_error () );
 while ( $row = mysql_fetch_array ( $result ) ) {
 	echo "<OPTION value='$row[sector_id]'> $row[sector_id] - $row[nombre] </OPTION> \n";
 }
-echo "</select>
+echo "</select>*/
+echo "
 </td>
 </tr>
-<tr>
-<td>
-$Contact: </td> <td>  <select name='contacto'>
-          <option>  </option>";
 
-// # Busco en la tabla 'atributo' los contactos.
-// Search in the table 'atributo' the contacts.
-
-$query = "SELECT valor
-                FROM {$MyPHD}atributo
-                WHERE atributo='$Contact'
-                ORDER BY valor";
-$result = mysql_query ( $query ) or die ( mysql_error () );
-
-while ( $row = mysql_fetch_array ( $result ) ) {
-	echo "<OPTION > $row[valor] </OPTION> \n";
-}
-
-echo "   <option> Web </option>
-    </select>
-</td>
-</tr>
 <tr>
 <td>
 $User:  </td> <td> <input type='text' name='usuario' size='15' maxlength='15'>
 <INPUT  class='boton_lupa' title='$Search $User' type='button' value= '' onclick=window.open('usr_busco.php','','width=500,height=390,scrollbars=1,resizable=1,toolbar=0,location=0,menubar=0,status=0,directories=0')>
-
+</td>
+</tr>
+";
+/*echo "
 &nbsp;&nbsp; &nbsp; &nbsp;
 $Area: <select name='area_id'>
     <option></option> \n";
@@ -146,10 +128,10 @@ while ( $row = mysql_fetch_array ( $result ) ) {
 	echo "<option value='$row[area_id]'> $row[area_id] - $row[nombre] </option> \n";
 }
 echo "</select>
-</td>
-</tr>
+*/
+echo "
 <tr>
-<td>
+	<td>
 
 $Assigned_to: </td> <td> <select name='asignado_a'>
     <option></option> \n";
@@ -157,9 +139,11 @@ $Assigned_to: </td> <td> <select name='asignado_a'>
 // # Busco en la tabla 'operador' lo operadores.
 // Search in the table 'operador' the operators.
 
+//Sector 01 Corresponde a los de Mantenimiento
+//Ver Tabla Sector
 $query = "SELECT operador_id, ape_y_nom
                 FROM {$MyPHD}operador
-                WHERE sector_id='$_SESSION[PHD_SECTOR_ID]' OR privado='N'
+                WHERE sector_id='01'
                 ORDER BY operador_id";
 $result = mysql_query ( $query ) or die ( mysql_error () );
 
@@ -167,7 +151,8 @@ while ( $row = mysql_fetch_array ( $result ) ) {
 	echo "<OPTION value='$row[operador_id]'> $row[operador_id] - $row[ape_y_nom] </OPTION> \n";
 }
 
-echo "</select>
+echo "</select>";
+/*
 &nbsp;&nbsp; &nbsp; &nbsp;
 $Sector: <select name='asignado_a_sector'>
     <option></option> \n";
@@ -183,8 +168,8 @@ $result = mysql_query ( $query ) or die ( mysql_error () );
 while ( $row = mysql_fetch_array ( $result ) ) {
 	echo "<OPTION value='$row[sector_id]'> $row[sector_id] - $row[nombre] </OPTION> \n";
 }
-echo "</select>
-
+*/
+echo "
 </td>
 </tr>
 <tr>
@@ -248,33 +233,97 @@ echo "   </SELECT>
 </tr>
 <tr>
 <td>
-$Type:  </td> <td> <SELECT name='tipo' onBlur='f_sub_tipo(this);'>
-      <OPTION>  </OPTION>";
-
-// # Busco en la tabla de atributos los tipos de incidentes.
-// Search in the table of attributes the types of incidents.
-
-$query = "SELECT valor
-                FROM {$MyPHD}atributo
-                WHERE atributo='$Type'
-                ORDER BY valor";
-$result = mysql_query ( $query ) or die ( mysql_error () );
-
-while ( $row = mysql_fetch_array ( $result ) ) {
-	echo "<OPTION value='$row[valor]'> $row[valor] </OPTION> \n";
-}
-
-// # Ahora armo la lista de selecci�n de subtipos.
-// Make the subtype list.
-
-echo "    </select>
-&nbsp;&nbsp; &nbsp; &nbsp;
-$Subtype: <select name='sub_tipo'>  </select>
-
+	$Tipo_de_Trabajo
 </td>
+<td>
+";
+?>
+
+<?php
+
+$arr_tipo_trabajo = array(
+ 'Mecanico' => 'Mecanico',
+ 'Electromecanico' => 'Electromecanico',
+ 'Plomeria' => 'Plomeria',
+ 'Obra Civil' => 'Obra Civil',
+ 'Metalmecanico' => 'Metalmecanico',
+ 'Soldadura' => 'Soldadura');
+
+ ?>
+
+
+	<select id="tipo_trabajo" name="tipo_trabajo">
+		 <option value='0'>Seleccione...</option>
+		 <?php
+		 $selected = '';
+		 while (list($key, $val)=each($arr_tipo_trabajo)) {
+			 /*if ($tipo_trabajo == $val) {
+				 $selected = 'selected';
+				 $existe = true;
+			 } else {
+				 $selected = '';
+			 }*/
+		 ?>
+		 <option value='<?php echo $key; ?>'><?php echo $val; ?></option>
+		 <?php
+		 }
+		 ?>
+	</select>
+<?php
+echo "
+	</td>
+</tr>
+";
+?>
+<link href="plugins/select2/dist/css/select2.min.css" rel="stylesheet" />
+<tr>
+	<td><label for="cbxPlanta"><?php echo $Planta_Text ?>: </label></td>
+	<td>
+		<select id='cbxPlanta' style="width: 50%">
+			<option value="">Select one...</option>
+		</select>
+	</td>
 </tr>
 <tr>
-<td>
+	<td><label for="cbxEquipoPrincipal"><?php echo $Equipo_Principal_Text ?>: </label></td>
+	<td>
+		<select id='cbxEquipoPrincipal' style="width: 50%">
+			<option value="">Select one...</option>
+		</select>
+	</td>
+</tr>
+<tr>
+	<td><label for="cbxEquipoSecundario"><?php echo $Equipo_Secundario_Text ?>: </label></td>
+	<td>
+		<select id='cbxEquipoSecundario' style="width: 50%">
+			<option value="">Select one...</option>
+		</select>
+	</td>
+</tr>
+<tr>
+	<td><label for="cbxComponente"><?php echo $Componente_Text ?>: </label></td>
+	<td>
+		<select id='cbxComponente' style="width: 50%">
+			<option value="">Select one...</option>
+		</select>
+	</td>
+</tr>
+
+<input type='hidden' id="sel_planta" name='sel_planta' />
+<input type='hidden' id="sel_equipo_princ"  name='sel_equipo_princ' />
+<input type='hidden' id="sel_equipo_sec" name='sel_equipo_sec' />
+<input type='hidden' id="sel_componente" name='sel_componente' />
+
+<script src="js/jquery-2.1.0.min.js"></script>
+<script src="plugins/select2/dist/js/select2.min.js"></script>
+<script src="js/jquery-ui-1.9.2.custom.js"></script>
+<script type="text/javascript" src="web_script.js"></script>
+
+<?php
+echo "
+<tr>
+	<td>
+
 $State:  </td> <td> <SELECT name='estado'>
          <OPTION>  </OPTION>";
 
@@ -283,7 +332,7 @@ $State:  </td> <td> <SELECT name='estado'>
 
 $query = "SELECT valor
                 FROM {$MyPHD}atributo
-                WHERE atributo='$State'
+                WHERE atributo='$State' AND activo = 'S'
                 ORDER BY valor";
 $result = mysql_query ( $query ) or die ( mysql_error () );
 
@@ -304,7 +353,7 @@ $To: <INPUT type='text' name='fecha_ue_hasta' size='10' maxlength='10' > ($Date_
 
 
 
-}
+//}
 ?>
 
 <?php

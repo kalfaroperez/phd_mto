@@ -190,13 +190,31 @@ if (isSet ( $_POST ['modificar'] ) or isSet ( $_GET ['modificar'] )) {
 }elseif (isset ( $_POST ['adjunto'] )) {
 				//global $Host,$Usuario,$Contrasena, $Base;
 
-				$query = "SELECT * FROM {$MyPHD}ticket WHERE seq_ticket_id=$_POST[seq_ticket_id]";
+				/*$query = "SELECT * FROM {$MyPHD}ticket WHERE seq_ticket_id=$_POST[seq_ticket_id]";
 				$result = mysql_query ( $query );
 				$row = mysql_fetch_array ( $result );
 				$tipo_adjunto = $row ['tipo_adjunto'];
 				$adjunto = $row ['adjunto'];
 				$nombre_adjunto = $row ['nombre_adjunto'];
 				$ruta_adjunto = $row ['ruta_adjunto'];
+				*/
+				// Check if file already exists
+				$target_dir = "D:/uploads/".$seq_ticket_id;
+				if (file_exists($target_dir)) {
+						//echo "Sorry, file already exists.";
+						$files = scandir($target_dir,1);
+						//echo "<pre>";print_r($files); echo "</pre>";die;
+						for ($i=0; $i < count($files); $i++) {
+							if ($files[$i] != ".." && $files[$i] != ".") {
+									$nombre_adjunto  = $files[$i];
+
+									if (strlen ( $nombre_adjunto ) > 0) {
+											echo "$nombre_adjunto<br/>";
+									}
+							}
+						}
+
+				}
 
 				header ( "Content-type: $tipo_adjunto" );
 				header ( "Content-Disposition: attachment; filename=\"$nombre_adjunto\"" );

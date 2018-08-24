@@ -81,7 +81,7 @@ if (isSet($_GET['exito'])) {
 <br/><br/><br/>
 <div id='contenido'>
 	<form enctype='multipart/form-data' name='ticket' method='post' action='ticket_modif.php' onsubmit='document.ticket.fecha_sigo.value=f_fecha();'>
-		<div id='div_ticket_user'>
+		<div id='div_ticket_user_t'>
 			<!--Hiddens De los selectores -->
 			<input type='hidden' name='h_prioridad' value='<?php echo $prioridad; ?>' />
 			<input type='hidden' name='h_asignado_a' value='<?php echo $asignado_a; ?>' />
@@ -166,7 +166,7 @@ if ($_SESSION ['PHD_SEQ_SOLICITUD_ID'] > 0) {
 			     </tr>
 				 </table>
 				 </div>
-				 <div id='div_admin' style='display:block'>
+				 <div id='div_admin_t' style='display:block'>
 				 <table border='0' width='95%' cellpadding='3' cellspacing='1' align='center' >
 			     <tr>
 
@@ -186,7 +186,11 @@ if ($_SESSION ['PHD_SEQ_SOLICITUD_ID'] > 0) {
 						<td>
 <?php
 $colspan = "";
-$dir_upload = $_SERVER['DOCUMENT_ROOT']."/phd_mto/uploads/".$seq_ticket_id."/";
+//$dir_upload = $_SERVER['DOCUMENT_ROOT']."/phd_mto/uploads/".$seq_ticket_id."/";
+$dir_upload = "D:/uploads/".$seq_ticket_id."/";
+if (file_exists($dir_upload)) {
+	// code...
+
 $files = scandir($dir_upload,1);
 //echo "<pre>";print_r($files); echo "</pre>";die;
 for ($i=0; $i < count($files); $i++) {
@@ -201,7 +205,7 @@ for ($i=0; $i < count($files); $i++) {
 						 <div style="display:block">
 								 <input class='boton_bold' type='submit' value='<?php echo $Download; ?>' name='adjunto'>
 								 <b><?php echo $nombre_adjunto; ?></b>
-								 <input type='hidden' name='nombre_adjunto' value='<?php echo $nombre_adjunto; ?>'>
+								 <input type='hidden' name='nombre_adjunto<?php echo $i+1 ?>' value='<?php echo $nombre_adjunto; ?>'>
 					 	 </div>
 <?php
 				} else {
@@ -209,6 +213,7 @@ for ($i=0; $i < count($files); $i++) {
 				}
 		}
 	}
+}
 ?>
 
 						 <td <?php echo $colspan; ?> >
@@ -392,14 +397,17 @@ if (! $existe) {
 						      <td>
 										<?php
 												$data = getPlantaByID($id_planta);
-												list($k, $planta) = each($data);
-												$nombre_planta = $planta['nombre_planta'];
+												if (!empty($data)) {
+													list($k, $planta) = each($data);
+													$nombre_planta = $planta['nombre_planta'];
+												}
+
 
 										?>
 										<div class="ui-widget">
-											<label for="txtPlanta">Area: </label>
-											<!--<input id='txtPlanta' class="ui-autocomplete-input" value="<?php echo $nombre_planta; ?>" <?php echo $disabled_field; ?> />-->
-											<select id='txtPlanta' style="width: 50%" <?php echo $disabled_field; ?>>
+											<label for="cbxPlanta">Area: </label>
+											<!--<input id='cbxPlanta' class="ui-autocomplete-input" value="<?php echo $nombre_planta; ?>" <?php echo $disabled_field; ?> />-->
+											<select id='cbxPlanta' style="width: 50%" <?php echo $disabled_field; ?>>
 												<option value="<?php echo $id_planta; ?>"><?php echo $nombre_planta; ?></option>
 											</select>
 										</div>
@@ -434,13 +442,15 @@ if (! $existe) {
 						      <td>
 										<?php
 													$data = getEquipoPrincipalByID($id_equipo_princ);
-													list($k, $row) = each($data);
-													$nombre_equipo_princ = $row['nombre_equipo_princ'];
+													if (!empty($data)) {
+														list($k, $row) = each($data);
+														$nombre_equipo_princ = $row['nombre_equipo_princ'];
+													}
 										?>
 										<div class="ui-widget">
-											<label for="txtEquipoPrincipal">Equipo Principal: </label>
-											<!--<input id='txtEquipoPrincipal' class="ui-autocomplete-input" value="<?php echo $nombre_equipo_princ; ?>" <?php echo $disabled_field; ?> />-->
-											<select id='txtEquipoPrincipal' style="width: 50%" <?php echo $disabled_field; ?>>
+											<label for="cbxEquipoPrincipal">Equipo Principal: </label>
+											<!--<input id='cbxEquipoPrincipal' class="ui-autocomplete-input" value="<?php echo $nombre_equipo_princ; ?>" <?php echo $disabled_field; ?> />-->
+											<select id='cbxEquipoPrincipal' style="width: 50%" <?php echo $disabled_field; ?>>
 												<option value="<?php echo $id_equipo_princ; ?>"><?php echo $nombre_equipo_princ; ?></option>
 											</select>
 										</div>
@@ -476,13 +486,15 @@ if (! $existe) {
 						    <td>
 									<?php
 												$data = getEquipoSecundarioByID($id_equipo_sec);
-												list($k, $row) = each($data);
-												$nombre_equipo_sec = $row['nombre_equipo_sec'];
+												if (!empty($data)) {
+													list($k, $row) = each($data);
+													$nombre_equipo_sec = $row['nombre_equipo_sec'];
+												}
 									?>
 									<div class="ui-widget">
-										<label for="txtEquipoSecundario">Equipo Secundario: </label>
-										<!--<input id='txtEquipoSecundario' class="ui-autocomplete-input" value="<?php echo $nombre_equipo_sec; ?>" <?php echo $disabled_field; ?> />-->
-										<select id='txtEquipoSecundario' style="width: 50%" <?php echo $disabled_field; ?>>
+										<label for="cbxEquipoSecundario">Equipo Secundario: </label>
+										<!--<input id='cbxEquipoSecundario' class="ui-autocomplete-input" value="<?php echo $nombre_equipo_sec; ?>" <?php echo $disabled_field; ?> />-->
+										<select id='cbxEquipoSecundario' style="width: 50%" <?php echo $disabled_field; ?>>
 											<option value="<?php echo $id_equipo_sec; ?>"><?php echo $nombre_equipo_sec; ?></option>
 										</select>
 									</div>
@@ -514,14 +526,17 @@ if (! $existe) {
 						    <!--td>Componentes</td-->
 						    <td>
 									<?php
-												$data = getComponenteByID($id_componente);
+
+											$data = getComponenteByID($id_componente);
+											if (!empty($data)) {
 												list($k, $row) = each($data);
 												$nombre_componente = $row['nombre_componente'];
+											}
 									?>
 									<div class="ui-widget">
-										<label for="txtComponente">Componentes: </label>
-										<!--<input id='txtComponente' class="ui-autocomplete-input" value="<?php echo $nombre_componente; ?>" <?php echo $disabled_field; ?> />-->
-										<select id='txtComponente' style="width: 50%" <?php echo $disabled_field; ?>>
+										<label for="cbxComponente">Componentes: </label>
+										<!--<input id='cbxComponente' class="ui-autocomplete-input" value="<?php echo $nombre_componente; ?>" <?php echo $disabled_field; ?> />-->
+										<select id='cbxComponente' style="width: 50%" <?php echo $disabled_field; ?>>
 											<option value="<?php echo $id_componente; ?>"><?php echo $nombre_componente; ?></option>
 										</select>
 									</div>
@@ -616,7 +631,7 @@ if (! $existe) {
 			       </tr>
 					 </table>
 					 </div>
-					 <div id='div_boton_accion'>
+					 <div id='div_boton_accion_t'>
 
 				     <table class='borde_fino' border='0' cellspacing='0' cellpadding='0' width='95%' align='center'>
 				       <!--Calificacion Ticket-->
