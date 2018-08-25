@@ -24,6 +24,14 @@ $accion = (isset($_GET['accion'])) ? $_GET['accion'] : $_POST['accion'];
 $elemento_html =  $_POST['elemento_html'];
 
 switch ($accion) {
+  case 'download_adjuntos':
+    $nombre_archivo = $_GET["nombre_archivo"];
+    $seq_ticket_id_ = $_GET["seq_ticket_id"];
+
+    descargar_archivo($seq_ticket_id_, $nombre_archivo);
+
+    break;
+
   case 'load_autocomplete_planta':
     $term = $_GET['query'];
     cargar_autocomplete_planta($term);
@@ -741,5 +749,23 @@ function registrar_clasificacion($accion)
 function delete_clasificacion($id_registro){
     $resultado = deleteClasificacionEquipos($id_registro);
     echo $resultado;
+}
+
+function descargar_archivo($seq_ticket_id_, $nombre_archivo)
+{
+  $target_dir = "D:/uploads/".$seq_ticket_id;
+  $file_ = "D:/uploads/".$seq_ticket_id."/".$nombre_archivo;
+  $mime_type = mime_content_type($file_);
+
+  if (file_exists($file_)) {
+    $files = scandir($file_,1);
+
+    echo "entre";;
+    header ( "Content-type: $mime_type" );
+    header ( "Content-Disposition: attachment; filename='$file_'" );
+    readfile($file_);
+    echo $file_;
+    exit ();
+  }
 }
 ?>

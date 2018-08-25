@@ -16,6 +16,7 @@ $(document).ready(function(){
     ocultar_campos_form_ticket();
     autocomplete_planta();
     clonarFileUpload();
+    descargar_archivo();
     /*
     sobreescribir_fileUpload();
     var filesToUpload = [];
@@ -49,6 +50,25 @@ $(document).ready(function(){
   });
 });
 
+function descargar_archivo() {
+  $(".adjunto").on('click',function(i){
+    var nombre_archivo = $(this).attr("nombre_adjunto");
+    var seq_ticket_id = $(this).attr("id_ticket");
+    $.ajax({
+        method: "GET",
+        data: {
+          'accion': "download_adjuntos",
+          'seq_ticket_id' : seq_ticket_id,
+          'nombre_archivo' : nombre_archivo
+        },
+        url: "operaciones_ajax.php"
+      })
+      .done(function( msg ) {
+          alert("archivo descargado con exito!");
+      });
+
+  });
+}
 
 function clonarFileUpload() {
   var cont = 0;

@@ -477,7 +477,9 @@ while ( $row = mysql_fetch_array ( $result ) ) {
         $query = "SELECT valor
                         FROM {$MyPHD}atributo
                         WHERE atributo='$State' AND activo='S'
-                        ORDER BY valor";
+                        ORDER BY seq_atrib_id";
+
+                        echo "$query";
         $result = mysql_query ( $query ) or die ( mysql_error () );
 
         while ( $row = mysql_fetch_array ( $result ) ) {

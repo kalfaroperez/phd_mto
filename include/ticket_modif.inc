@@ -92,6 +92,7 @@ if (isSet($_GET['exito'])) {
 			<input type='hidden' name='h_fecha_ultimo_estado' value='<?php echo $fecha_ultimo_estado; ?>' />
 			<input type='hidden' name='h_fecha_entrega' value='<?php echo $fecha_entrega; ?>' />
 			<input type='hidden' name='h_calificacion' value='<?php echo $calificacion; ?>' />
+			<input type='hidden' name='seq_ticket_id' value='<?php echo $seq_ticket_id; ?>' />
 
 			<input type='hidden' name='h_disabled_field' value='<?php echo $disabled_field; ?>' />
 
@@ -200,12 +201,13 @@ for ($i=0; $i < count($files); $i++) {
 				if (strlen ( $nombre_adjunto ) > 0) {
  					$colspan = "";
 ?>
-
-
 						 <div style="display:block">
-								 <input class='boton_bold' type='submit' value='<?php echo $Download; ?>' name='adjunto'>
+							 <input class='boton_bold adjunto'
+							 				nombre_adjunto='<?php echo $nombre_adjunto?>'
+											id_ticket="<?php echo $seq_ticket_id ?>"
+											type='button' value='<?php echo $Download; ?>'
+											style='cursor:pointer'>
 								 <b><?php echo $nombre_adjunto; ?></b>
-								 <input type='hidden' name='nombre_adjunto<?php echo $i+1 ?>' value='<?php echo $nombre_adjunto; ?>'>
 					 	 </div>
 <?php
 				} else {

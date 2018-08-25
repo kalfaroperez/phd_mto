@@ -217,7 +217,7 @@ if (isSet ( $_POST ['modificar'] ) or isSet ( $_GET ['modificar'] )) {
 				}
 
 				header ( "Content-type: $tipo_adjunto" );
-				header ( "Content-Disposition: attachment; filename=\"$nombre_adjunto\"" );
+				header ( "Content-Disposition: attachment; filename='$nombre_adjunto'" );
 				readfile($ruta_adjunto);
 				echo $adjunto;
 				exit ();

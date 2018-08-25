@@ -2,7 +2,7 @@
     /*
     Nombre: lang.inc
     Autor: Julio Tuozzo
-    Funcio;n: Plantilla de variables de idioma.
+    Funci&oacute;n: Plantilla de variables de idioma.
     Function: Group of language variables.
     Ver: 2.12
 */
@@ -35,7 +35,7 @@
     $Componente_Text = "Componente";
 
     $And_press="y presione";
-    $Alert_assign_head="Aviso: se asigno; el ticket #%1% a (%2%) - %3%";
+    $Alert_assign_head="Aviso: se asign&oacute; el ticket #%1% a (%2%) - %3%";
     $Alert_tickets="tiene tickets en estado %1%";
     $Are_data_loaded="Hay datos cargados y no han sido guardados, quiere salir de todas maneras?";
 	$Are_you_sure_cancel_file="Esta seguro de cancelar el archivo?";
@@ -45,9 +45,9 @@
     $Comment_added="Comentario agregado";
 	$Explain_load="Al presionar <em>Cargar</em> solo quendan activos los usuarios del archivo CSV, con los datos actualizados.";
 	$File_loaded="Archivo cargado, %1% registros procesados";
-    $Input_the_code="Ingrese el co;digo que se muestra en la imagen superior";
+    $Input_the_code="Ingrese el c&oacute;digo que se muestra en la imagen superior";
     $Mail_sent="Se ha enviado el correo con la contrase&ntilde;a de ";
-    $No_mail_sent="Por alg&uacute;n motivo no se envio; el correo con la contrase&ntilde;a de";
+    $No_mail_sent="Por alg&uacute;n motivo no se envi&oacute; el correo con la contrase&ntilde;a de";
     $New_pswd_assigned="La contrase&ntilde;a asignada es: ";
     $Next="Siguiente";
     $No="NO";
@@ -57,7 +57,7 @@
     $Pswd_expired="SU CONTRASE&Ntilde;A HA EXPIRADO, DEBE CAMBIARLA";
     $Request_was_send="Se ha enviado la solicitud de soporte %1%, recuerde este n&uacute;mero para futuras referencias.";
     $Subtype_of="Subtipo de";
-    $Ticket_was_stored="Se guardo; el ticket";
+    $Ticket_was_stored="Se guard&oacute; el ticket";
     $User_doesnt_exists="El usuario no existe, complete los datos";
     $Warning="!! ATENCION !!";
     $Was_modif="%1% fue modificado";
@@ -87,7 +87,7 @@
     $Err_max_row_2="filas y el m�ximo permitido es de";
     $Err_max_row_3="ampl�e el apellido y/o nombre";
     $Err_parameters_file="Error en el archivo de par�metros, debe contener un registro y se han le�do %1%";
-    $Error_captcha="ERROR - Co;digo incorrecto";
+    $Error_captcha="ERROR - C&oacute;digo incorrecto";
     $High_than_16m="No puede ser mayor a 16.000.000";
     $Inactive_user="ERROR - Usuario inactivo";
     $Invalid_character="CONTIENE UN CARACTER NO VALIDO - ERROR";
@@ -111,7 +111,7 @@
     $No_user_found="No existen usuarios con";
     $No_type="Falta ingresar el tipo";
   	$No_upload_folder="No existe el subdirectorio \"upload\", cree ese subdirectorio en la rai;z de <strong>PHD Help Desk</strong>";
-    $No_valid_e_mail="La direccio;n de correo electro;nico no es va;lida";
+    $No_valid_e_mail="La direcci&oacute;n de correo electr&oacute;nico no es va;lida";
     $No_valid_format_lsd="Formato de fecha de &uacute;ltimo estado inva;lido";
     $No_valid_format_date_from="El formato de la fecha desde no es va;lido";
     $No_valid_format_date_to="El formato de la fecha hasta no es va;lido";
@@ -133,7 +133,7 @@
     $User_not_exists="ERROR - El usuario no existe";
     $Sector_exists="El sector ya existe";
     $Was_updated_1="ERROR - Este ticket ha sido actualizado por:";
-    $Was_updated_2="despu�s que se leyeron los datos del registro <br> Imposible realizar la actualizacio;n";
+    $Was_updated_2="despu�s que se leyeron los datos del registro <br> Imposible realizar la actualizaci&oacute;n";
 
 
 ## Opciones de men� y links
@@ -141,13 +141,13 @@
     $Advanced_query="Consulta avanzada";
     $Areas="Areas";
     $Attributes="Atributos";
-    $Check_last_version="Ver &uacute;ltima versio;n";
+    $Check_last_version="Ver &uacute;ltima versi&oacute;n";
 	$Consults="Consultas";
     $E_mail_error_log="Log de errores de e-mail";
     $Forgot_password="Olvide; mi contrase&ntilde;a";
     $Help="Ayuda";
     $Home="Inicio";
-    $Management_requests="Gestio;n de solicitudes";
+    $Management_requests="Gesti&oacute;n de solicitudes";
     $New_request="Nueva solicitud";
     $New_ticket="Nuevo ticket";
 	$News="Novedades";
@@ -166,28 +166,28 @@
 
 
 ## T�tulos
-    $Administration="Administracio;n";
+    $Administration="Administraci&oacute;n";
     $Active="Activo";
-    $Area_admin="Administracio;n de a;reas";
-    $Attribute_admin="Administracio;n de atributos del ticket";
+    $Area_admin="Administraci&oacute;n de a;reas";
+    $Attribute_admin="Administraci&oacute;n de atributos del ticket";
     $Body="Contenido";
     $Change_active="Cambiar Activo SI/NO";
     $Class_attribute="Clase de atributo";
     $Comments="Comentarios";
     $Default_values="Valores predeterminados del ticket";
-    $Equipos_p_admin="Administracio;n de Equipos Principales del ticket";
+    $Equipos_p_admin="Administraci&oacute;n de Equipos Principales del ticket";
     $Enter_last_name="Ingrese Nombre y/o Apellido, completos o solo una parte";
     $Error_message="Mensaje de error";
 	$File_content="Contenido del archivo";
     $Input_your_data="Ingrese sus datos";
    	$Load_csv_file="Cargar archivo formato CSV";
     $Load_user="Ingreso de Usuarios";
-    $Parameters_admin="Administracio;n de para;metros";
+    $Parameters_admin="Administraci&oacute;n de para;metros";
     $Oper_pswd_change="Cambio de contrase&ntilde;a de operador";
-    $Oper_admin="Administracio;n de operadores";
+    $Oper_admin="Administraci&oacute;n de operadores";
     $Query_head="Filtro= ";
     $Reason_request="Motivo de la solicitud";
-    $Sector_admin="Administracio;n de sectores";
+    $Sector_admin="Administraci&oacute;n de sectores";
     $Support_request="Solicitud de soporte";
     $Log_in="Ingreso al sistema";
     $Receiver="Destinatario";
@@ -201,9 +201,9 @@
     $Total_tkt="Total de Tickets";
     $Tkt_follow_up="SEGUIMIENTO DEL TICKET";
     $User_information="Datos del usuario";
-    $Users_admin="Administracio;n de usuarios";
+    $Users_admin="Administraci&oacute;n de usuarios";
     $Value="Valor";
-    $Version="Versio;n 2.12 - Febrero 2012";
+    $Version="Versi&oacute;n 2.12 - Febrero 2012";
 
 
 
@@ -211,7 +211,7 @@
     $Alert_assign="Avisar asignado";
     $Alert_user_request="Avisar solicitud de usuario";
     $Area="Area";
-    $Area_code="Co;digo de a;rea";
+    $Area_code="C&oacute;digo de a;rea";
     $Assigned_to="Asignado a";
     $Attach_file="Adjuntar archivo";
     $Attached_file="Archivo adjuntado";
@@ -239,7 +239,7 @@
     $Actual_pswd="Contrase&ntilde;a actual";
     $New_pswd="Nueva contrase&ntilde;a";
     $Retype_pswd="Reingrese nueva contrase&ntilde;a";
-    $Elec_mail="Correo electro;nico";
+    $Elec_mail="Correo electr&oacute;nico";
     $Access_level="Nivel de acceso";
     $Administrator="Administrador";
     $Name="Nombre";
@@ -251,7 +251,7 @@
     $Priority="Prioridad";
     $Request="Solicitud";
     $Sector="Sector";
-    $Sector_code="Co;digo de sector";
+    $Sector_code="C&oacute;digo de sector";
     $Ticket="Ticket";
     $Type_a_word="Ingrese una o ma;s palabras separadas por espacio";
     $User_visible="Visible para el usuario";
@@ -283,11 +283,11 @@
     $Show="Mostrar";
     $Modif="Modificar";
 
-## Mensajes de correo electro;nico
+## Mensajes de correo electr&oacute;nico
     $Access_at="Ingrese en";
-    $Alert_comment_subjet="Aviso: se agrego; un comentario a su solicitud #%1%";
-    $Alert_ticket_comment_subjet="Aviso: el usuario (%1%) - %2% agrego; un comentario al ticket #%3%";
-    $Alert_user_request_subjet="Aviso: se ingreso; la solicitud de soporte #%1%";
+    $Alert_comment_subjet="Aviso: se agreg&oacute; un comentario a su solicitud #%1%";
+    $Alert_ticket_comment_subjet="Aviso: el usuario (%1%) - %2% agreg&oacute; un comentario al ticket #%3%";
+    $Alert_user_request_subjet="Aviso: se ingres&oacute; la solicitud de soporte #%1%";
     $Body_new_oper_1="Ha sido dado de alta en PHD Help Desk.";
     $Body_new_pswd_1="Se ha modificado su contrase&ntilde;a en PHD Help Desk.";
     $Body_new_pswd_2="Su usuario es:";
@@ -296,8 +296,8 @@
     $Comment_added_by="Comentario agregado por %1%, el %2% a las %3%";
     $Subject_new_oper="Alta en PHD Help Desk";
     $Subject_new_pswd="Nueva contrase&ntilde;a para PHD Help Desk";
-    $Try_e_mail="Se intento; enviar a la direccio;n de correo";
-    $Was_sended_to="Se envio; a la direccio;n de correo";
+    $Try_e_mail="Se intent&oacute; enviar a la direcci&oacute;n de correo";
+    $Was_sended_to="Se envi&oacute; a la direcci&oacute;n de correo";
 
 ## URLs
     $User_guide_url="http://www.p-hd.com.ar/user_guide_2_12.php";
@@ -337,7 +337,7 @@
 
 	$Comma="Coma";
 	$Semicolon="Punto y coma";
-	$Tab="Tabulacio;n";
+	$Tab="Tabulaci&oacute;n";
 
 ## Texto de formato de fecha
 switch ($_SESSION['PHD_DATE_FORMAT'])
