@@ -57,7 +57,7 @@
     $Pswd_expired="SU CONTRASE&Ntilde;A HA EXPIRADO, DEBE CAMBIARLA";
     $Request_was_send="Se ha enviado la solicitud de soporte %1%, recuerde este n&uacute;mero para futuras referencias.";
     $Subtype_of="Subtipo de";
-    $Ticket_was_stored="Se guard&oacute; el ticket";
+    $Ticket_was_stored="Se guardo; el ticket";
     $User_doesnt_exists="El usuario no existe, complete los datos";
     $Warning="!! ATENCION !!";
     $Was_modif="%1% fue modificado";

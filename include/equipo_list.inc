@@ -85,9 +85,10 @@
 							<label>Ficha T&eacute;nica</label>
                 Adjuntos:
                 <div id='div_0'>
-                  <input type='file' id="adjunto1" class="fileUpload form-control" name='adjunto[]' maxlength='120'> (Max. <?php echo $text_max_attach; ?>)
+                  <input type="button" class="button" name="" value="+"><input type='file' id="adjunto1" class="fileUpload form-control" name='adjunto[]' maxlength='120'> (Max. <?php echo $text_max_attach; ?>)
+
                 </div>
-                <input type="button" class="button" name="" value="+">
+
 						</div>
 					</div>
 					<div class="modal-footer">
@@ -116,9 +117,14 @@
 							<label>Descripcion</label>
               <input id="txtDescripcionEdit" type="text" maxlength="100" class="form-control">
 						</div>
-            <div class="form-group">
+            <div class="form-group files">
 							<label>Ficha T&eacute;nica</label>
-              <input id="fileFichaTecnica" type="file" multiple="multiple" class="form-control">
+                Adjuntos:
+                <div id='div_0'>
+                  <input type='file' id="adjunto1" class="fileUpload form-control" name='adjunto[]' maxlength='120'> (Max. <?php echo $text_max_attach; ?>)
+                  <input type="button" class="button" name="" value="+">
+                </div>
+                <input type="button" class="button form-control" name="" value="+">
 						</div>
 					</div>
 					<div class="modal-footer">
@@ -154,7 +160,10 @@
   <script type="text/javascript" src="jquery.bootpag.min.js"></script>
   <script src="js/jquery-2.1.0.min.js"></script>
   <script src="js/jquery-ui-1.9.2.custom.js"></script>
+  <script src="plugins/select2/dist/js/select2.min.js"></script>
   <script type="text/javascript" src="web_script.js"></script>
+
+
 
 
 </body>

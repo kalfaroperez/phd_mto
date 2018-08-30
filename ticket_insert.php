@@ -125,13 +125,14 @@ $fecha_entrega = $_POST ['fecha_entrega'];
 $operador_ultimo_estado = $operador;
 
 //Adjunto
+/*
 $file = $_FILES;
 $target_dir = "D:/uploads/"; //"$_SERVER['DOCUMENT_ROOT']."/phd_mto/uploads/";
 $ruta_adjunto = $target_file = $target_dir . basename($file["adjunto"]["name"]);
 $nombre_adjunto = basename($file["adjunto"]["name"]);
 $tipo_adjunto = $_FILES ["adjunto"] ["type"];
 $imageFileType = strtolower(pathinfo($target_file,PATHINFO_EXTENSION));
-
+*/
 /*
 $archivo = $_FILES ["adjunto"] ["tmp_name"];
 $nombre_adjunto = $_FILES ["adjunto"] ["name"];
@@ -253,6 +254,59 @@ if (! fecha_valida ( $fecha_ultimo_estado )) // # Verfico que el formato de la f
 elseif (strtotime ( fecha_mysql ( $fecha ) ) > strtotime ( fecha_mysql ( $fecha_ultimo_estado ) )) {
 	$mensaje .= "<br> $Lsd_lower_date";
 }
+
+//Validacion del archivo
+$files = $_FILES;
+if (isset($files['adjunto'])) {
+		$file_ary = reArrayFiles($files['adjunto']);
+		$dir_upload = "D:/uploads/".$seq_ticket_id."/"; //$_SERVER['DOCUMENT_ROOT']."/phd_mto/uploads/".$seq_ticket_id."/";
+
+		foreach ($file_ary as $file) {
+			$target_dir = $dir_upload;
+			$target_file = $target_dir . basename($file["name"]);
+
+			$uploadOk = 1;
+			$FileType = strtolower(pathinfo($target_file,PATHINFO_EXTENSION));
+			// Check file size
+			if ($file["size"] > 5000000) {
+					$mensaje .= "El archivo supera el tamaño establecido (5Mb).";
+					$uploadOk = 0;
+			}
+
+			$tipos = array(
+				'jpg' => 'jpg',
+				'png' =>  'png',
+				'jpeg' => 'jpeg',
+				'gif' =>  'gif',
+				'jpeg' => 'jpeg',
+				'pdf' =>  'pdf',
+				'doc' =>  'doc',
+				'docx' => 'docx',
+				'xlx' =>  'xlx',
+				'xlsx' => 'xlsx',
+				'csv' =>  'csv',
+				'ppt' =>  'ppt',
+				'pptx' => 'pptx',
+				'txt'=> 'txt');
+			// Allow certain file formats
+			$ext_perm ="";
+			if(in_array($FileType, $tipos, true)) {
+			}else{
+
+					foreach ($tipos as $key => $value) {
+						 $ext_perm .=$value.", ";
+					}
+					$mensaje .= "Archivo invalido. Solo es permitido las siguientes extensiones: $ext_perm<br/>";
+					$uploadOk = 0;
+			}
+
+			// Check if $uploadOk is set to 0 by an error
+			if ($uploadOk == 0) {
+					$mensaje .= "Su archivo no ha sido cargado. Error al subir archivo. ";
+			// if everything is ok, try to upload file
+			}
+		}
+	}
 
 if (isSet ( $mensaje )) // # Hay errores, los muestro y no proceso el ticket
                         // Error found, show the errors and doesn�t procces the ticket
@@ -413,7 +467,7 @@ function reArrayFiles(&$file_post) {
 
 function guardarArchivoAdjunto_onServer($files, $seq_ticket_id){
 
-	if ($files['adjunto']) {
+	if (isset($files['adjunto'])) {
 	    $file_ary = reArrayFiles($files['adjunto']);
       $dir_upload = "D:/uploads/".$seq_ticket_id."/"; //$_SERVER['DOCUMENT_ROOT']."/phd_mto/uploads/".$seq_ticket_id."/";
       mkdir($dir_upload, 0777);
@@ -424,19 +478,6 @@ function guardarArchivoAdjunto_onServer($files, $seq_ticket_id){
 
 				$uploadOk = 1;
 				$imageFileType = strtolower(pathinfo($target_file,PATHINFO_EXTENSION));
-				// Check if image file is a actual image or fake image
-				/*if(isset($_POST["submit"])) {
-					check = getimagesize($file["adjunto"]["tmp_name"]);
-					if($check !== false) {
-							echo "File is an image - " . $check["mime"] . ".";
-							$uploadOk = 1;
-					} else {
-							echo "File is not an image.";
-							$uploadOk = 0;
-					}
-
-
-				}*/
 
 				// Check if file already exists
 				if (file_exists($target_file)) {
@@ -451,8 +492,9 @@ function guardarArchivoAdjunto_onServer($files, $seq_ticket_id){
 						$uploadOk = 0;
 				}
 
+				$tipos = array('jpg', 'png', 'jpeg', 'gif', 'jpeg', 'pdf', 'doc', 'docx', 'xlx', 'xlsx', 'csv', 'ppt', 'pptx', 'txt');
 				// Allow certain file formats
-				if($imageFileType != "jpg" && $imageFileType != "png" && $imageFileType != "jpeg" && $imageFileType != "gif" && $imageFileType != "pdf") {
+				if(!in_array($FileType, $tipos[$i])) {
 						$mensaje .= "Archivo invalido. Solo es permitido las siguientes extensiones: PDF, JPG, JPEG, PNG & GIF";
 						$uploadOk = 0;
 				}

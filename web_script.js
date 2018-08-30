@@ -54,6 +54,26 @@ function descargar_archivo() {
   $(".adjunto").on('click',function(i){
     var nombre_archivo = $(this).attr("nombre_adjunto");
     var seq_ticket_id = $(this).attr("id_ticket");
+
+
+    var url_request = "operaciones_ajax.php?accion=download_adjuntos&seq_ticket_id="+seq_ticket_id+"&nombre_archivo="+nombre_archivo;
+    var xhr = new XMLHttpRequest();
+    xhr.open('GET', url_request , true);
+    xhr.responseType = 'blob';
+
+    xhr.onload = function(e) {
+     if (this.status == 200) {
+       var blob = new Blob([this.response]);
+       var link = document.createElement('a');
+       link.href = window.URL.createObjectURL(blob);
+       link.download = nombre_archivo;
+       link.click();
+     }
+    };
+
+    xhr.send();
+
+    /*
     $.ajax({
         method: "GET",
         data: {
@@ -61,12 +81,19 @@ function descargar_archivo() {
           'seq_ticket_id' : seq_ticket_id,
           'nombre_archivo' : nombre_archivo
         },
-        url: "operaciones_ajax.php"
-      })
-      .done(function( msg ) {
-          alert("archivo descargado con exito!");
-      });
+        url: "operaciones_ajax.php",
 
+      })
+      .done(function( data ) {
+        alert(data);
+        var blob=new Blob([data]);
+        var a = document.createElement('a');
+          var url = window.URL.createObjectURL(blob);
+          a.href = url;
+          a.download = nombre_archivo;
+          a.click();
+          window.URL.revokeObjectURL(url);
+      });*/
   });
 }
 

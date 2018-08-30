@@ -14,6 +14,7 @@ require ($Include . 'lang.inc');
 require ('funciones.inc.php');
 
 
+
 if (! isset ( $_SESSION ['PHD_NIVEL'] ) or $_SESSION ['PHD_NIVEL'] < 10) {
 	include ($Include . 'login.inc');
 	exit ();
@@ -26,7 +27,8 @@ $Conect = mysql_connect ( $Host, $Usuario, $Contrasena ) or die ( mysql_error ()
 $Uso = mysql_select_db ( $Base ) or die ( mysql_error () );
 
 $text_max_attach = conv_bytes ( $_SESSION [PHD_MAX_ATTACH] );
-
+//echo "POST<pre>"; print_r($_POST); echo "</pre>";
+//echo "GET<pre>"; print_r($_GET); echo "</pre>";
 // # Depuro los GETs
 // GETs sanitization
 
@@ -188,6 +190,7 @@ if (isSet ( $_POST ['modificar'] ) or isSet ( $_GET ['modificar'] )) {
 			// # Veo si abre el adjunto
 			// Check if open the attach
 }elseif (isset ( $_POST ['adjunto'] )) {
+
 				//global $Host,$Usuario,$Contrasena, $Base;
 
 				/*$query = "SELECT * FROM {$MyPHD}ticket WHERE seq_ticket_id=$_POST[seq_ticket_id]";
@@ -198,8 +201,15 @@ if (isSet ( $_POST ['modificar'] ) or isSet ( $_GET ['modificar'] )) {
 				$nombre_adjunto = $row ['nombre_adjunto'];
 				$ruta_adjunto = $row ['ruta_adjunto'];
 				*/
+				/*
+
+				$nombre_archivo = $_GET["nombre_archivo"];
+		    $seq_ticket_id_ = $_GET["id_ticket"];
+
+		    descargar_archivo($seq_ticket_id_, $nombre_archivo);
+				*/
 				// Check if file already exists
-				$target_dir = "D:/uploads/".$seq_ticket_id;
+				/*$target_dir = "D:/uploads/".$seq_ticket_id;
 				if (file_exists($target_dir)) {
 						//echo "Sorry, file already exists.";
 						$files = scandir($target_dir,1);
@@ -220,9 +230,10 @@ if (isSet ( $_POST ['modificar'] ) or isSet ( $_GET ['modificar'] )) {
 				header ( "Content-Disposition: attachment; filename='$nombre_adjunto'" );
 				readfile($ruta_adjunto);
 				echo $adjunto;
-				exit ();
+				exit ();*/
 
 } else{
+	//echo "</pre>"; die;
 			// # inicializo las variables con lo que viene del formulario
 			// Initializing the variables with the form data.
 			// # Verifico si esta seteado magic_quotes_gpt para sacar la barra invertida (\)
@@ -301,10 +312,13 @@ if (isSet ( $_POST ['modificar'] ) or isSet ( $_GET ['modificar'] )) {
 					$visible_check = "";
 				}
 
+
+				/*
 				$s_archivo = $_FILES ["sigo_adjunto"] ["tmp_name"];
 				$s_tamanio_adjunto = $_FILES ["sigo_adjunto"] ["size"];
 				$s_tipo_adjunto = $_FILES ["sigo_adjunto"] ["type"];
 				$s_nombre_adjunto = $_FILES ["sigo_adjunto"] ["name"];
+				*/
 }
 
 // # Verfico que se haya ingresado por "guardar", si no es as� muestro
@@ -398,6 +412,62 @@ if ($_SESSION ['ACT_PHD_SEQ_TICKET_ID'] != $seq_ticket_id) {
 	$mensaje = "<br /> $Other_win_open";
 }
 
+
+//Validacion del archivo
+$files = $_FILES;
+if (isset($files['adjunto'])) {
+		$file_ary = reArrayFiles($files['adjunto']);
+		$dir_upload = "D:/uploads/".$seq_ticket_id."/"; //$_SERVER['DOCUMENT_ROOT']."/phd_mto/uploads/".$seq_ticket_id."/";
+
+		foreach ($file_ary as $file) {
+			$target_dir = $dir_upload;
+			$target_file = $target_dir . basename($file["name"]);
+
+			$uploadOk = 1;
+			$FileType = strtolower(pathinfo($target_file,PATHINFO_EXTENSION));
+			// Check file size
+			if ($file["size"] > 5000000) {
+					$mensaje .= "El archivo supera el tamaño establecido (5Mb).";
+					$uploadOk = 0;
+			}
+
+			$tipos = array(
+				'jpg' => 'jpg',
+				'png' =>  'png',
+				'jpeg' => 'jpeg',
+				'gif' =>  'gif',
+				'jpeg' => 'jpeg',
+				'pdf' =>  'pdf',
+				'doc' =>  'doc',
+				'docx' => 'docx',
+				'xlx' =>  'xlx',
+				'xlsx' => 'xlsx',
+				'csv' =>  'csv',
+				'ppt' =>  'ppt',
+				'pptx' => 'pptx',
+				'txt'=> 'txt');
+			// Allow certain file formats
+			$ext_perm ="";
+			if(in_array($FileType, $tipos, true)) {
+			}else{
+
+					foreach ($tipos as $key => $value) {
+						 $ext_perm .=$value.", ";
+					}
+					$mensaje .= "Archivo invalido. Solo es permitido las siguientes extensiones: $ext_perm<br/>";
+					$uploadOk = 0;
+			}
+
+			// Check if $uploadOk is set to 0 by an error
+			if ($uploadOk == 0) {
+					$mensaje .= "Su archivo no ha sido cargado. Error al subir archivo. ";
+			// if everything is ok, try to upload file
+			}
+		}
+	}
+
+//
+
 if (isSet ( $mensaje )){
 		// # Hay errores, los muestro y no proceso el ticket
 		// There are errors, show it and don't proccess the ticket.
@@ -422,16 +492,17 @@ if (isSet ( $mensaje )){
 					$row = mysql_fetch_array ( $result );
 					$update_datetime = $row ['update_datetime'];
 
-					if ($_SESSION ['PHD_HORA_LEIDO'] <= $update_datetime){
-						// # El registro se actualiz� desde que lo
-						// # le�, no se puede guardar la actualizaci�n
+					/*if ($_SESSION ['PHD_HORA_LEIDO'] <= $update_datetime){
+						// # El registro se actualiza desde que lo
+						// # leo, no se puede guardar la actualizaci�n
 					  // The record was updated after there was read,
 					  // its not possible update it.
 
 						$mensaje = "$Was_updated_1 {$row['update_oper']} - {$row['ape_y_nom']}, $Was_updated_2";
+						echo "<pre>";print_r($_POST);print_r($_FILES); echo "Hora Update $update_datetime";print_r($_SESSION);echo "</pre>";die;
 						include ($Include . 'ticket_modif.inc');
 						exit ();
-					}
+					}*/
 
 					// # verifico si hubo cambios y hago el update del ticket y guardo los datos para el seguimiento.
 					// verify that were changes and do the update to the follow up of the ticket.
@@ -941,10 +1012,144 @@ if (isSet ( $mensaje )){
 						if ($visible == 'S') {
 							send_comment ( $seq_ticket_id );
 						}
+
+						if ($result != 0) {
+							$mensaje_adj = guardarArchivoAdjunto_onServer($_FILES, $seq_ticket_id);
+
+						}
+
+
 						//echo "<script language='JavaScript'>window.close();</script>";
 
 							header ( "Location: ticket_modif.php?modificar=$seq_ticket_id&exito=s" );
 
 }
 
+function descargar_archivo($seq_ticket_id_, $nombre_archivo)
+{
+  $target_dir = "D:/uploads/".$seq_ticket_id_;
+  $file_ = "D:/uploads/".$seq_ticket_id_."/".$nombre_archivo;
+  $mime_type = mime_content_type($file_);
+  if (file_exists($file_)) {
+    $files = scandir($file_,1);
+
+    echo "entre";;
+    header ( "Content-type: $mime_type" );
+    header ( "Content-Disposition: attachment; filename='$file_'" );
+    readfile($file_);
+    echo $file_;
+    exit ();
+  }
+}
+
+function reArrayFiles(&$file_post) {
+
+	$file_ary = array();
+	$file_count = count($file_post['name']);
+	$file_keys = array_keys($file_post);
+
+	for ($i=0; $i<$file_count; $i++) {
+			foreach ($file_keys as $key) {
+					$file_ary[$i][$key] = $file_post[$key][$i];
+			}
+	}
+
+	return $file_ary;
+}
+
+function guardarArchivoAdjunto_onServer($files, $seq_ticket_id){
+
+if (isset($files['adjunto'])) {
+
+	    $file_ary = reArrayFiles($files['adjunto']);
+      $dir_upload = "D:/uploads/".$seq_ticket_id."/"; //$_SERVER['DOCUMENT_ROOT']."/phd_mto/uploads/".$seq_ticket_id."/";
+			if (file_exists($dir_upload)) {
+
+			}else {
+				mkdir($dir_upload, 0777);
+			}
+
+	    foreach ($file_ary as $file) {
+				$target_dir = $dir_upload;
+				$target_file = $target_dir . basename($file["name"]);
+				$nombre_archivo = $seq_ticket_id."_".basename($file["name"]);
+
+				$uploadOk = 1;
+				$FileType = strtolower(pathinfo($target_file,PATHINFO_EXTENSION));
+
+				// Check if image file is a actual image or fake image
+				/*if(isset($_POST["submit"])) {
+					check = getimagesize($file["adjunto"]["tmp_name"]);
+					if($check !== false) {
+							echo "File is an image - " . $check["mime"] . ".";
+							$uploadOk = 1;
+					} else {
+							echo "File is not an image.";
+							$uploadOk = 0;
+					}
+
+
+				}*/
+
+				// Check if file already exists
+				if (file_exists($target_file)) {
+						//echo "Sorry, file already exists.";
+						unlink($target_file);
+						//$uploadOk = 0;
+				}
+
+				// Check file size
+				if ($file["size"] > 5000000) {
+						$mensaje .= "El archivo supera el tamaño establecido (5Mb).";
+						$uploadOk = 0;
+				}
+
+				$tipos = array(
+					'jpg' => 'jpg',
+					'png' =>  'png',
+					'jpeg' => 'jpeg',
+					'gif' =>  'gif',
+					'jpeg' => 'jpeg',
+					'pdf' =>  'pdf',
+					'doc' =>  'doc',
+					'docx' => 'docx',
+					'xlx' =>  'xlx',
+					'xlsx' => 'xlsx',
+					'csv' =>  'csv',
+					'ppt' =>  'ppt',
+					'pptx' => 'pptx',
+					'txt'=> 'txt');
+				// Allow certain file formats
+				$ext_perm ="";
+				if(in_array($FileType, $tipos, true)) {
+				}else{
+
+						foreach ($tipos as $key => $value) {
+							 $ext_perm .=$value.", ";
+						}
+						$mensaje .= "Archivo invalido. Solo es permitido las siguientes extensiones: $ext_perm<br/>";
+						$uploadOk = 0;
+				}
+
+				// Check if $uploadOk is set to 0 by an error
+				if ($uploadOk == 0) {
+						$mensaje .= "Su archivo no ha sido cargado. Error al subir archivo. ";
+				// if everything is ok, try to upload file
+				} else {
+						$info_archivo = array('nombre' => $nombre_archivo,
+																'tipo_archivo' => $FileType,
+																'ruta_archivo' => $target_file);
+
+
+						if (move_uploaded_file($file["tmp_name"], $target_file)) {
+								$mensaje .= "El archivo nombre ". basename( $nombre_archivo). " ha sido cargado exitosamente.";
+						} else {
+								$mensaje .= "Su archivo no ha sido cargado. Error al subir archivo.";
+						}
+
+       }
+	   }
+  }
+	return $mensaje;
+}
 ?>

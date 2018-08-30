@@ -35,7 +35,6 @@ echo "$titulo
 	 <th nowrap> <a href=$_SERVER[PHP_SELF]?pagina=1&q_registros=$q_registros&orden=usuario_id&sentido=$sen_usuario_id>$User</a> $arr_usuario_id
 	 <th nowrap> <a href=$_SERVER[PHP_SELF]?pagina=1&q_registros=$q_registros&orden=operador_id_id&sentido=$sen_operador_id>$Operator</a> $arr_operador_id
    <th nowrap> <a href=$_SERVER[PHP_SELF]?pagina=1&q_registros=$q_registros&orden=ape_y_nom&sentido=$sen_ape_y_nom>$Last_and_first_name</a> $arr_ape_y_nom
-	 <th nowrap> <a href=$_SERVER[PHP_SELF]?pagina=1&q_registros=$q_registros&orden=area_id&sentido=$sen_area_id>$Area</a> $arr_area_id
 	 <th nowrap> $Incident
 	 <th nowrap> <a href=$_SERVER[PHP_SELF]?pagina=1&q_registros=$q_registros&orden=estado&sentido=$sen_estado>$State</a> $arr_estado
      <th nowrap> <a href=$_SERVER[PHP_SELF]?pagina=1&q_registros=$q_registros&orden=fecha_ultimo_estado&sentido=$sen_fecha_ultimo_estado>$Last_state_date</a> $arr_fecha_ultimo_estado
@@ -67,7 +66,6 @@ echo "$titulo
       <td> $row[usuario_id]
       <td> $row[operador_id]
       <td nowrap> $disp_ape_y_nom
-      <td> $row[area_id]
       <td> $disp_incidente";
 
 ## Veo si hay comentarios en el ticket

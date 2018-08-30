@@ -327,7 +327,7 @@ while ( $row = mysql_fetch_array ( $result ) ) {
       'Obra Civil' => 'Obra Civil',
       'Metalmecanico' => 'Metalmecanico',
       'Soldadura' => 'Soldadura',); ?>
-     <td> $Tipo_de_Trabajo:
+     <td> <?php echo "$Tipo_de_Trabajo: "; ?>
        <select id="tipo_trabajo" name="tipo_trabajo">
           <option value='0'>Seleccione...</option>
           <?php

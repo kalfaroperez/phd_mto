@@ -92,7 +92,7 @@ if (isSet($_GET['exito'])) {
 			<input type='hidden' name='h_fecha_ultimo_estado' value='<?php echo $fecha_ultimo_estado; ?>' />
 			<input type='hidden' name='h_fecha_entrega' value='<?php echo $fecha_entrega; ?>' />
 			<input type='hidden' name='h_calificacion' value='<?php echo $calificacion; ?>' />
-			<input type='hidden' name='seq_ticket_id' value='<?php echo $seq_ticket_id; ?>' />
+
 
 			<input type='hidden' name='h_disabled_field' value='<?php echo $disabled_field; ?>' />
 
@@ -116,6 +116,7 @@ if (isSet($_GET['exito'])) {
 		    </tr>
 		    </table>
 		    <center class=error><?php echo $mensaje; ?> </center>
+				<center class=error><?php echo $mensaje_adj; ?> </center>
 				<center class=exito><?php echo $mensaje_exito; ?> </center>
 
 		    <table class=borde_fino width='95%' cellpadding='1' cellspacing='0' align='center' >
@@ -207,6 +208,8 @@ for ($i=0; $i < count($files); $i++) {
 											id_ticket="<?php echo $seq_ticket_id ?>"
 											type='button' value='<?php echo $Download; ?>'
 											style='cursor:pointer'>
+
+											<!--<a href="operaciones_ajax.php?accion=download_adjuntos&id_ticket=<?php echo $seq_ticket_id ?>&nombre_archivo=<?php echo $nombre_adjunto?>">Descargar</a>-->
 								 <b><?php echo $nombre_adjunto; ?></b>
 					 	 </div>
 <?php
@@ -298,35 +301,7 @@ while ( $row = mysql_fetch_array ( $result ) ) {
 ?>
 										</select>
 						     </td>
-						     <td>
-<?php
-// # Solo pueden ver y cambiar el atributo privado un operador del sector que ingres� el ticket
-// Only can view and change the private attribute an operator that belong to the sector has inserted the ticket.
 
-if ($operador_sector_id == $_SESSION ['PHD_SECTOR_ID']) {
-?>
-	<?php echo $Private; ?> &nbsp; <input type='checkbox' <?php echo $private_check; ?> name='privado' value='S' <?php echo $disabled_field; ?> />
-
-<?php
-
-} else {
-
-?>
-	<input type='hidden' name='privado' value='<?php echo $privado; ?>'  />
-            <?php echo $Private; ?>:
-<?php
-	if ($privado == "S") {
-?>
-		<?php echo '<b>'. $Yes.'</b>'; ?>
-<?php
-	} else {
-?>
-		<?php echo '<b>' .$No.'</b>'; ?>
-<?php
-	}
-}
-?>
-				</td>
       </tr>
 
       <tr>
@@ -647,7 +622,7 @@ if (! $existe) {
 			      <table border='0' cellspacing='1' cellpadding='2' width='100%'>
 			             <tr>
 			              <td align='right'>
-			               <input class='boton_guardar' style='width: 86px;' type='submit' value='<?php echo $Save; ?>' name='guardar' onclick='this.value=\"Wait...\"' />
+			               <input class='boton_guardar' style='width: 86px;' type='submit' value='<?php echo $Save; ?>' name='guardar' onclick="this.value='Wait...'" />
 			              </td>
 			              <td align='right'>
 			               <input class='boton_salir' style='width: 86px;' type='button' name='button' value='<?php echo $Close; ?>' onClick='window.close()' />
