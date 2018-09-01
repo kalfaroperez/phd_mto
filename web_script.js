@@ -100,7 +100,7 @@ function descargar_archivo() {
 function clonarFileUpload() {
   var cont = 0;
   $(".button").click(function() {
-    cont = $("input[class='fileUpload']").length + 1;
+    cont = $(":file").length + 1;
     var x = $("#adjunto1"),
         y = x.clone();
     y.attr("id", "file"+cont);

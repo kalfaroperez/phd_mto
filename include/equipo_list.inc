@@ -81,14 +81,12 @@
 							<label>Descripcion</label>
               <input id="txtDescripcionInsert" type="text" maxlength="100" class="form-control">
 						</div>
-            <div class="form-group files">
-							<label>Ficha T&eacute;nica</label>
-                Adjuntos:
+            <div class="form-group files" id="files1">
+							<label>Ficha T&eacute;nica Adjuntos:</label>
                 <div id='div_0'>
-                  <input type="button" class="button" name="" value="+"><input type='file' id="adjunto1" class="fileUpload form-control" name='adjunto[]' maxlength='120'> (Max. <?php echo $text_max_attach; ?>)
-
+                  <input type="button" class="button" name="" value="+">
+                  <input type='file'  id="adjunto1" class="fileUpload form-control" name='adjunto[]'> (Max. <?php echo $text_max_attach; ?>)
                 </div>
-
 						</div>
 					</div>
 					<div class="modal-footer">
