@@ -529,4 +529,111 @@ function get_descripcion_calificaion($param){
 
 	return $param;
 }
+
+function reArrayFiles(&$file_post) {
+
+	$file_ary = array();
+	$file_count = count($file_post['name']);
+	$file_keys = array_keys($file_post);
+
+	for ($i=0; $i<$file_count; $i++) {
+			foreach ($file_keys as $key) {
+					$file_ary[$i][$key] = $file_post[$key][$i];
+			}
+	}
+
+	return $file_ary;
+}
+
+function guardarArchivoAdjunto_onServer($files, $seq_ticket_id, $subcarpeta_adjunto){
+
+	if (isset($files['adjunto'])) {
+	    $file_ary = reArrayFiles($files['adjunto']);
+      $dir_upload = "D:/uploads/$subcarpeta_adjunto/".$seq_ticket_id."/"; //$_SERVER['DOCUMENT_ROOT']."/phd_mto/uploads/".$seq_ticket_id."/";
+      mkdir($dir_upload, 0777);
+	    foreach ($file_ary as $file) {
+				$target_dir = $dir_upload;
+				$target_file = $target_dir . basename($file["name"]);
+				$nombre_archivo = $seq_ticket_id."_".basename($file["name"]);
+
+				$uploadOk = 1;
+				$FileType = strtolower(pathinfo($target_file,PATHINFO_EXTENSION));
+
+				// Check if file already exists
+				if (file_exists($target_file)) {
+						//echo "Sorry, file already exists.";
+						unlink($target_file);
+						//$uploadOk = 0;
+				}
+
+				// Check file size
+				if ($file["size"] > 5000000) {
+						$mensaje .= "El archivo supera el tamaño establecido (5Mb).";
+						$uploadOk = 0;
+				}
+
+				$tipos = array(
+					'jpg' => 'jpg',
+					'png' =>  'png',
+					'jpeg' => 'jpeg',
+					'gif' =>  'gif',
+					'jpeg' => 'jpeg',
+					'pdf' =>  'pdf',
+					'doc' =>  'doc',
+					'docx' => 'docx',
+					'xlx' =>  'xlx',
+					'xlsx' => 'xlsx',
+					'csv' =>  'csv',
+					'ppt' =>  'ppt',
+					'pptx' => 'pptx',
+					'txt'=> 'txt');
+				// Allow certain file formats
+				$ext_perm ="";
+				if(in_array($FileType, $tipos, true)) {
+				}else{
+
+						foreach ($tipos as $key => $value) {
+							 $ext_perm .=$value.", ";
+						}
+						$mensaje .= "Archivo invalido. Solo es permitido las siguientes extensiones: $ext_perm<br/>";
+						$uploadOk = 0;
+				}
+
+				// Check if $uploadOk is set to 0 by an error
+				if ($uploadOk == 0) {
+						$mensaje .= "Su archivo no ha sido cargado. Error al subir archivo.";
+				// if everything is ok, try to upload file
+				} else {
+						$info_archivo = array('nombre' => $nombre_archivo,
+																'tipo_archivo' => $FileType,
+																'ruta_archivo' => $target_file);
+
+
+						if (move_uploaded_file($file["tmp_name"], $target_file)) {
+								$mensaje .= "El archivo nombre ". basename( $nombre_archivo). " ha sido cargado exitosamente.";
+						} else {
+								$mensaje .= "Su archivo no ha sido cargado. Error al subir archivo.";
+						}
+
+       }
+	   }
+  }
+}
+
+/*function descargar_archivo($seq_ticket_id_, $nombre_archivo)
+{
+  $target_dir = "D:/uploads/$subcarpeta/".$seq_ticket_id_;
+  $file_ = $target_dir."/".$nombre_archivo;
+  $mime_type = mime_content_type($file_);
+  if (file_exists($file_)) {
+    $files = scandir($file_,1);
+
+    echo "entre";;
+    header ( "Content-type: $mime_type" );
+    header ( "Content-Disposition: attachment; filename='$file_'" );
+    readfile($file_);
+    echo $file_;
+    exit ();
+  }
+}*/
 ?>

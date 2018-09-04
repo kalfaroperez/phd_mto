@@ -17,19 +17,6 @@ $(document).ready(function(){
     autocomplete_planta();
     clonarFileUpload();
     descargar_archivo();
-    /*
-    sobreescribir_fileUpload();
-    var filesToUpload = [];
-    var files1Uploader = $("#adjunto").fileUploader(filesToUpload, "files1");
-    //inputFileUpload(filesToUpload);
-    adjunto(filesToUpload, files1Uploader);
-    */
-
-
-    //delete_adjunto();
-    /**/
-    // Activate tooltip
-    //$('[data-toggle="tooltip"]').tooltip();
 
     // Select/Deselect checkboxes
     $("#selectAll").click(function(){
@@ -54,9 +41,9 @@ function descargar_archivo() {
   $(".adjunto").on('click',function(i){
     var nombre_archivo = $(this).attr("nombre_adjunto");
     var seq_ticket_id = $(this).attr("id_ticket");
+    var subcarpeta = $(this).attr("subcarpeta");
 
-
-    var url_request = "operaciones_ajax.php?accion=download_adjuntos&seq_ticket_id="+seq_ticket_id+"&nombre_archivo="+nombre_archivo;
+    var url_request = "operaciones_ajax.php?accion=download_adjuntos&seq_ticket_id="+seq_ticket_id+"&nombre_archivo="+nombre_archivo+"&subcarpeta="+subcarpeta;
     var xhr = new XMLHttpRequest();
     xhr.open('GET', url_request , true);
     xhr.responseType = 'blob';
@@ -73,27 +60,6 @@ function descargar_archivo() {
 
     xhr.send();
 
-    /*
-    $.ajax({
-        method: "GET",
-        data: {
-          'accion': "download_adjuntos",
-          'seq_ticket_id' : seq_ticket_id,
-          'nombre_archivo' : nombre_archivo
-        },
-        url: "operaciones_ajax.php",
-
-      })
-      .done(function( data ) {
-        alert(data);
-        var blob=new Blob([data]);
-        var a = document.createElement('a');
-          var url = window.URL.createObjectURL(blob);
-          a.href = url;
-          a.download = nombre_archivo;
-          a.click();
-          window.URL.revokeObjectURL(url);
-      });*/
   });
 }
 
@@ -144,15 +110,7 @@ function autocomplete_planta(){
     $("#sel_planta").attr("value", id_planta);
     autocomplete_equipoPrincipal(id_planta);
   });
-  /*$( "#cbxPlanta").autocomplete({
-      source: "operaciones_ajax.php?accion=load_autocomplete_planta",
-      minLength: 2,
-      select: function( event, ui ) {
-        var id_planta = ui.item.id
-        $("#sel_planta").attr("value", id_planta);
-        autocomplete_equipoPrincipal(id_planta);
-      }
-    });*/
+
 }
 
 function autocomplete_equipoPrincipal(id_planta) {
@@ -177,15 +135,7 @@ function autocomplete_equipoPrincipal(id_planta) {
     $("#sel_equipo_princ").attr("value", id_equipo_princ);
     autocomplete_equipoSecundario(id_planta, id_equipo_princ);
   });
-  /*$( "#cbxEquipoPrincipal").autocomplete({
-      source: "operaciones_ajax.php?accion=load_autocomplete_equipoPrincipal&id_planta="+id_planta ,
-      minLength: 2,
-      select: function( event, ui ) {
-        var id_equipo_princ = ui.item.id;
-        $("#sel_equipo_princ").attr("value", id_equipo_princ);
-        autocomplete_equipoSecundario(id_planta, id_equipo_princ);
-      }
-    });*/
+
 }
 
 function autocomplete_equipoSecundario(id_planta, id_equipo_princ) {
@@ -211,15 +161,7 @@ function autocomplete_equipoSecundario(id_planta, id_equipo_princ) {
     $("#sel_equipo_sec").attr("value", id_equipo_sec);
     autocomplete_Componente(id_planta, id_equipo_princ, id_equipo_sec);
   });
-  /*$( "#cbxEquipoSecundario").autocomplete({
-      source: "operaciones_ajax.php?accion=load_autocomplete_equipoSecundario&id_planta="+id_planta+"&id_equipo_princ="+id_equipo_princ,
-      minLength: 2,
-      select: function( event, ui ) {
-        var id_equipo_sec = ui.item.id;
-        $("#sel_equipo_sec").attr("value", id_equipo_sec);
-        autocomplete_Componente(id_planta, id_equipo_princ, id_equipo_sec);
-      }
-    });*/
+
 }
 
 function autocomplete_Componente(id_planta, id_equipo_princ, id_equipo_sec) {
@@ -245,55 +187,7 @@ function autocomplete_Componente(id_planta, id_equipo_princ, id_equipo_sec) {
     var id_componente = e.params.data.id;
     $("#sel_componente").attr("value", id_componente);
   });
-  /*$( "#cbxComponente").autocomplete({
-      source: "operaciones_ajax.php?accion=load_autocomplete_componente&id_planta="+id_planta+"&id_equipo_princ="+id_equipo_princ+"&id_equipo_sec="+id_equipo_sec,
-      minLength: 2,
-      select: function( event, ui ) {
-          var id_componente = ui.item.id;
-          $("#sel_componente").attr("value", id_componente);
-      }
 
-    });*/
-}
-
-
-
-function delete_adjunto(i){
-  /*$("#ul_adjuntos #li_adjunto_"+i).remove();
-  var myFiles = $('#adjunto');//.prop('files');
-  myFiles = myFiles.clone( true );
-  var filesToUpload = [];
-  var files1Uploader = $("#adjunto").fileUploader(filesToUpload, "adjunto");*/
-  /*
-  var txt = '';
-  if (myFiles != 'undefined') {
-        if (myFiles.length == 0) {
-            txt = "Select one or more files.";
-        } else {
-            for (var i = 0; i < myFiles.length; i++) {
-                txt += "<br><strong>" + (i+1) + ". file</strong><br>";
-                var file = myFiles[i];
-                if ('name' in file) {
-                    txt += "name: " + file.name + "<br>";
-                }
-                if ('size' in file) {
-                    txt += "size: " + file.size + " bytes <br>";
-                }
-            }
-        }
-    }
-    else {
-        if (myFiles.value == "") {
-            txt += "Select one or more files.";
-        } else {
-            txt += "The files property is not supported by your browser!";
-            txt  += "<br>The path of the selected file: " + myFiles.value; // If the browser does not support the files property, it will return the path of the selected file instead.
-        }
-    }
-
-    console.log(txt);
-    */
-  //myFile.replaceWith(myFile.clone());
 }
 
 function cargarDatePicker() {
@@ -357,30 +251,31 @@ function listar_registros(){
 
   }
 
-
 }
 
-function btnInsertarRegistro(){
+function btnInsertarRegistro() {
+  $("#addElementoModal").on('submit', '#formModal', function(e){
+    e.preventDefault();
+    var accion_selec = $("#btnSave").attr("accion");
+    //FormData es necesario para el envio de archivo,
+    //y de la siguiente manera capturamos todos los elementos del formulario
+    var parametros=new FormData($(this)[0]);
 
-    $("#addElementoModal").on('click', '#btnSave', function(){
-      var accion_selec = $(this).attr("accion");
-      var nombre = $("#txtNombreInsert").val();
-      var descripcion = $("#txtDescripcionInsert").val();
-      console.log(accion_selec);
-      $.ajax({
-          method: "POST",
-          data: {
-            'accion': accion_selec,
-            'nombre' : nombre,
-            'descripcion': descripcion
-          },
-          url: "operaciones_ajax.php",
-
-        })
-        .done(function( msg ) {
-            console.log(msg);
-        });
-    });
+    $.ajax({
+        method: "POST",
+        url: "operaciones_ajax.php?accion="+accion_selec,
+        data: parametros,
+        contentType: false, //importante enviar este parametro en false
+        processData: false, //importante enviar este parametro en false
+        success: function (data) {
+           alert("Se capturo el archivo con éxito");
+           location.reload();
+        },
+        error: function (r) {
+            alert("Error del servidor, por favor vuelva a intetar");
+        }
+      });
+  });
 }
 
 function editar_registro(){

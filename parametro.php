@@ -2,10 +2,10 @@
 /*
     Nombre: parametro.php
     Autor: Julio Tuozzo - jtuozzo@p-hd.com.ar
-    Función: Controlador del archivo de parámetros
+    Funciï¿½n: Controlador del archivo de parï¿½metros
     Function: Paramters file controler.
     Ver: 2.12
-    
+
 */
 session_start();
 require('config.inc.php');
@@ -24,9 +24,9 @@ $Uso=mysql_select_db($Base) or die (mysql_error());
 
 $mensaje='<br />';
 
-## Primero verfico que se haya ingresado por "guardar", si no es así
+## Primero verfico que se haya ingresado por "guardar", si no es asï¿½
 ## muestro la vista para pedir los datos
-// At first check that has been entered by “guardar”, if it is not thus
+// At first check that has been entered by ï¿½guardarï¿½, if it is not thus
 // show the view for data input.
 
 if(!isSet($_POST[guardar]))
@@ -56,6 +56,8 @@ if(!isSet($_POST[guardar]))
         $max_dif_min=$row['max_dif_min'];
         $max_attach=$row['max_attach'];
         $from_user_request=$row['from_user_request'];
+        $subcarpeta_adjunto_ticket = $row['subcarpeta_adjunto_ticket'];
+        $subcarpeta_adjunto_ficha_tec = $row['subcarpeta_adjunto_ficha_tec'];
         $from_user_psw=$row['from_user_psw'];
         $contact_default=$row['contact_default'];
         $process_default=$row['process_default'];
@@ -92,6 +94,8 @@ else
        $max_dif_min=$_POST['max_dif_min'];
        $max_attach=$_POST['max_attach'];
        $from_user_request=$_POST['from_user_request'];
+       $subcarpeta_adjunto_ticket = $_POST['subcarpeta_adjunto_ticket'];
+       $subcarpeta_adjunto_ficha_tec = $_POST['subcarpeta_adjunto_ficha_tec'];
        $from_user_psw=$_POST['from_user_psw'];
        $contact_default=$_POST['contact_default'];
        $process_default=$_POST['process_default'];
@@ -109,7 +113,7 @@ else
 
     }
 
-## Validación del contenido del formulario
+## Validaciï¿½n del contenido del formulario
 // Form content validation
 
 $OK=true;
@@ -175,6 +179,8 @@ $query="UPDATE {$MyPHD}parametros SET
        max_attach=$max_attach,
        assign_ticket='$assign_ticket',
        from_user_request='$from_user_request',
+       subcarpeta_adjunto_ticket= '$subcarpeta_adjunto_ticket',
+       subcarpeta_adjunto_ficha_tec = '$subcarpeta_adjunto_ficha_tec',
        from_user_psw='$from_user_psw',
        contact_default='$contact_default',
        process_default='$process_default',
@@ -189,7 +195,7 @@ $query="UPDATE {$MyPHD}parametros SET
   	   update_datetime=NOW()";
 
      $update=mysql_query($query) or die (mysql_error());
-     
+
      $_SESSION['PHD_VALIDEZ_PSW']=$validez_psw;
      $_SESSION['PHD_DIAS_PSW']=$dias_psw;
      $_SESSION['PHD_MAX_LINES_SCREEN']=$max_lines_screen;
@@ -198,6 +204,8 @@ $query="UPDATE {$MyPHD}parametros SET
      $_SESSION['PHD_MAX_ATTACH']=$max_attach;
      $_SESSION['PHD_ASSIGN_TICKET']=$assign_ticket;
      $_SESSION['PHD_FROM_USER_REQUEST']=$from_user_request;
+     $_SESSION['PHD_SUBCARPETA_ADJUNTO_TICKET']=$subcarpeta_adjunto_ticket;
+     $_SESSION['PHD__SUBCARPETA_ADJUNTO_FICHA_TEC']=$subcarpeta_adjunto_ficha_tec;
      $_SESSION['PHD_CONTACT_DEFAULT']=$contact_default;
      $_SESSION['PHD_PROCESS_DEFAULT']=$process_default;
      $_SESSION['PHD_STATE_DEFAULT']=$state_default;

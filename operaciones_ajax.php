@@ -28,8 +28,9 @@ switch ($accion) {
 
     $nombre_archivo = $_GET["nombre_archivo"];
     $seq_ticket_id_ = $_GET["seq_ticket_id"];
+    $subcarpeta = $_GET["subcarpeta"];
 
-    descargar_archivo($seq_ticket_id_, $nombre_archivo);
+    descargar_archivo($seq_ticket_id_, $nombre_archivo, $subcarpeta);
 
     break;
 
@@ -402,9 +403,16 @@ function delete_equipo_principal(){
 function insertar_equipo_principal(){
   $nombre = $_POST["nombre"];
   $descripcion = $_POST["descripcion"];
+  $files = $_FILES['adjunto'];
   $estado = "1";
 
   $resultado = insertarEquipoPrincipal($nombre, $descripcion, $estado);
+  if ($resultado == "ok") {
+    //Recibe los archivos y el numero de Id del ticket, si aplica
+    guardarArchivoAdjunto_onServer($files, $id_equipo_princ, $_SESSION['PHD__SUBCARPETA_ADJUNTO_FICHA_TEC']);
+    
+  }
+
   echo $resultado;
 }
 
@@ -753,10 +761,11 @@ function delete_clasificacion($id_registro){
     echo $resultado;
 }
 
-function descargar_archivo($seq_ticket_id_, $nombre_archivo)
+function descargar_archivo($seq_ticket_id_, $nombre_archivo, $subcarpeta)
 {
-  $target_dir = "D:/uploads/".$seq_ticket_id_;
-  $file_ = "D:/uploads/".$seq_ticket_id_."/".$nombre_archivo;
+  $target_dir = "D:/uploads/$subcarpeta/".$seq_ticket_id_;
+  $file_ = $target_dir."/".$nombre_archivo;
+
   $mime_type = mime_content_type($file_);
   if (file_exists($file_)) {
     //$files = scandir($file_);

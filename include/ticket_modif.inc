@@ -189,7 +189,7 @@ if ($_SESSION ['PHD_SEQ_SOLICITUD_ID'] > 0) {
 <?php
 $colspan = "";
 //$dir_upload = $_SERVER['DOCUMENT_ROOT']."/phd_mto/uploads/".$seq_ticket_id."/";
-$dir_upload = "D:/uploads/".$seq_ticket_id."/";
+$dir_upload = "D:/uploads/".$_SESSION['PHD_SUBCARPETA_ADJUNTO_TICKET']."/".$seq_ticket_id."/";
 if (file_exists($dir_upload)) {
 	// code...
 
@@ -205,6 +205,7 @@ for ($i=0; $i < count($files); $i++) {
 						 <div style="display:block">
 							 <input class='boton_bold adjunto'
 							 				nombre_adjunto='<?php echo $nombre_adjunto?>'
+											subcarpeta='<?php echo $_SESSION['PHD_SUBCARPETA_ADJUNTO_TICKET']; ?>'
 											id_ticket="<?php echo $seq_ticket_id ?>"
 											type='button' value='<?php echo $Download; ?>'
 											style='cursor:pointer'>

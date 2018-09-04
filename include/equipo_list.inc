@@ -67,7 +67,7 @@
 	<div id="addElementoModal" class="modal fade">
 		<div class="modal-dialog">
 			<div class="modal-content">
-        <form enctype="multipart/form-data">
+        <form id="formModal" enctype="multipart/form-data">
 					<div class="modal-header">
 						<h4 class="modal-title">Nuevo Registro</h4>
 						<button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
@@ -101,7 +101,7 @@
 	<div id="editElementoModal" class="modal fade">
 		<div class="modal-dialog">
 			<div class="modal-content">
-        <form>
+        <form id="formModal" enctype="multipart/form-data">
 					<div class="modal-header">
 						<h4 class="modal-title">Editar Registro</h4>
 						<button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>

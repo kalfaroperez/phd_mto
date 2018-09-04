@@ -440,7 +440,7 @@ else // # No hubo errores, guardo el registro
 
 	// # Verifico si el ticket esta asignado para mandar aviso a quien se lo asignaron.
 	// Check if the ticket was assined to send an e-mail to the assigned operator.
-	guardarArchivoAdjunto_onServer($_FILES, $seq_ticket_id);
+	guardarArchivoAdjunto_onServer($_FILES, $seq_ticket_id, $_SESSION['PHD_SUBCARPETA_ADJUNTO_TICKET']);
 
 	if (strlen ( $asignado_a ) > 0) {
 		send_ticket ( $asignado_a, $seq_ticket_id, $Filtro_ticket );
@@ -450,75 +450,7 @@ else // # No hubo errores, guardo el registro
 }
 
 
-function reArrayFiles(&$file_post) {
 
-	$file_ary = array();
-	$file_count = count($file_post['name']);
-	$file_keys = array_keys($file_post);
-
-	for ($i=0; $i<$file_count; $i++) {
-			foreach ($file_keys as $key) {
-					$file_ary[$i][$key] = $file_post[$key][$i];
-			}
-	}
-
-	return $file_ary;
-}
-
-function guardarArchivoAdjunto_onServer($files, $seq_ticket_id){
-
-	if (isset($files['adjunto'])) {
-	    $file_ary = reArrayFiles($files['adjunto']);
-      $dir_upload = "D:/uploads/".$seq_ticket_id."/"; //$_SERVER['DOCUMENT_ROOT']."/phd_mto/uploads/".$seq_ticket_id."/";
-      mkdir($dir_upload, 0777);
-	    foreach ($file_ary as $file) {
-				$target_dir = $dir_upload;
-				$target_file = $target_dir . basename($file["name"]);
-				$nombre_archivo = $seq_ticket_id."_".basename($file["name"]);
-
-				$uploadOk = 1;
-				$imageFileType = strtolower(pathinfo($target_file,PATHINFO_EXTENSION));
-
-				// Check if file already exists
-				if (file_exists($target_file)) {
-						//echo "Sorry, file already exists.";
-						unlink($target_file);
-						//$uploadOk = 0;
-				}
-
-				// Check file size
-				if ($file["size"] > 5000000) {
-						$mensaje .= "El archivo supera el tamaño establecido (5Mb).";
-						$uploadOk = 0;
-				}
-
-				$tipos = array('jpg', 'png', 'jpeg', 'gif', 'jpeg', 'pdf', 'doc', 'docx', 'xlx', 'xlsx', 'csv', 'ppt', 'pptx', 'txt');
-				// Allow certain file formats
-				if(!in_array($FileType, $tipos[$i])) {
-						$mensaje .= "Archivo invalido. Solo es permitido las siguientes extensiones: PDF, JPG, JPEG, PNG & GIF";
-						$uploadOk = 0;
-				}
-
-				// Check if $uploadOk is set to 0 by an error
-				if ($uploadOk == 0) {
-						$mensaje .= "Su archivo no ha sido cargado. Error al subir archivo.";
-				// if everything is ok, try to upload file
-				} else {
-						$info_archivo = array('nombre' => $nombre_archivo,
-																'tipo_archivo' => $imageFileType,
-																'ruta_archivo' => $target_file);
-
-
-						if (move_uploaded_file($file["tmp_name"], $target_file)) {
-								$mensaje .= "El archivo nombre ". basename( $nombre_archivo). " ha sido cargado exitosamente.";
-						} else {
-								$mensaje .= "Su archivo no ha sido cargado. Error al subir archivo.";
-						}
-
-       }
-	   }
-  }
-}
 
 
 ?>

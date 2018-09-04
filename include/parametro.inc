@@ -2,7 +2,7 @@
 /*
     Nombre: parametro.inc
     Autor: Julio Tuozzo
-    Función: Vista de administración de parámetros generales de PHD Help Desk.
+    Funciï¿½n: Vista de administraciï¿½n de parï¿½metros generales de PHD Help Desk.
     Function: PHD Help Desk's General parameters administration view.
     Ver: 2.12
 
@@ -10,7 +10,7 @@
 
 $opcion=$Parameters_admin;
 require('head.inc');
-## Formulario de ingreso de parámetros.
+## Formulario de ingreso de parï¿½metros.
 // Parameters data input form.
 
 echo "<body>";
@@ -65,7 +65,17 @@ echo "<div id='contenido'>
        <td colspan='2'><input type='text' name='from_user_psw' value='$from_user_psw' size='50' maxlength='60'> &nbsp;
          $Explain_from_user_psw $from_user_psw_err</td>
     </tr>
-
+    <tr>
+       <td>Subcarpeta Adjuntos para Tickets:</td>
+       <td colspan='2'>
+       <input type='text' name='subcarpeta_adjunto_ticket' value='$subcarpeta_adjunto_ticket' > &nbsp;/
+         $Explain_from_user_request $from_user_request_err</td>
+    </tr>
+    <tr>
+       <td>Subcarpeta Adjuntos para Fichas tecnicas:</td>       <td colspan='2'>
+       <input type='text' name='subcarpeta_adjunto_ficha_tec' value='$subcarpeta_adjunto_ficha_tec' > &nbsp;/
+         $Explain_from_user_request $from_user_request_err</td>
+    </tr>
 
     <tr>
        <td>state_alert:</td>
@@ -250,4 +260,3 @@ echo  "</select>
 </body>
 </html>";
 ?>
-
