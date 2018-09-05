@@ -257,7 +257,8 @@ elseif (strtotime ( fecha_mysql ( $fecha ) ) > strtotime ( fecha_mysql ( $fecha_
 
 //Validacion del archivo
 $files = $_FILES;
-if (isset($files['adjunto'])) {
+//echo "Tamaño => ";print_r($files['adjunto']['size'][0]);die;
+if (isset($files['adjunto']) && $files['adjunto']['size'][0] > 0) {
 		$file_ary = reArrayFiles($files['adjunto']);
 		$dir_upload = "D:/uploads/".$seq_ticket_id."/"; //$_SERVER['DOCUMENT_ROOT']."/phd_mto/uploads/".$seq_ticket_id."/";
 

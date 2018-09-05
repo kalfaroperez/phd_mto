@@ -353,7 +353,7 @@ function getComponenteByID($id_componente){
   while ( $row = mysql_fetch_array ( $result ) ) {
     $data [] = $row;
   }
-  
+
   mysql_close($Conect);
 
   return $data;
@@ -429,7 +429,15 @@ function insertarEquipoPrincipal($nombre="", $descripcion="", $estado=""){
   $result=mysql_query($query) or die (mysql_error());
 
   if ($result == 1) {
-      $resultado = "ok";
+
+      // # Levanto el n�mero de ticket para informarlo al operador.
+    	// Get the number of ticket to inform it to the operator.
+
+    	$query = "SELECT LAST_INSERT_ID() as id_equipo_princ";
+    	$result = mysql_query ( $query ) or die ( mysql_error () );
+    	$row = mysql_fetch_array ( $result );
+    	$id_equipo_princ = $row ['id_equipo_princ'];
+      $resultado = array('id_equipo_princ' => $id_equipo_princ, "resultado" => "ok");
   }else {
     $resultado = "malo";
   }

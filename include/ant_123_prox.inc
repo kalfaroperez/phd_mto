@@ -6,8 +6,8 @@
     Version: 2.12
 */
 
-## $pagina: Página que estoy mostrando 
-## $q_registros: cantidad de registros de la consulta 
+## $pagina: Pï¿½gina que estoy mostrando
+## $q_registros: cantidad de registros de la consulta
 ## $orden: orden de los registros.
 
 echo "\n <div style='text-align:center'>";

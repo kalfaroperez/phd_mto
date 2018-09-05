@@ -546,11 +546,11 @@ function reArrayFiles(&$file_post) {
 }
 
 function guardarArchivoAdjunto_onServer($files, $seq_ticket_id, $subcarpeta_adjunto){
-
-	if (isset($files['adjunto'])) {
+	if (isset($files['adjunto']) && $files['adjunto']['size'][0] > 0) {
 	    $file_ary = reArrayFiles($files['adjunto']);
       $dir_upload = "D:/uploads/$subcarpeta_adjunto/".$seq_ticket_id."/"; //$_SERVER['DOCUMENT_ROOT']."/phd_mto/uploads/".$seq_ticket_id."/";
-      mkdir($dir_upload, 0777);
+
+			mkdir($dir_upload, 0777);
 	    foreach ($file_ary as $file) {
 				$target_dir = $dir_upload;
 				$target_file = $target_dir . basename($file["name"]);

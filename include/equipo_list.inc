@@ -75,11 +75,11 @@
 					<div class="modal-body">
             <div class="form-group">
 							<label>Nombre</label>
-							<input id="txtNombreInsert" type="text" maxlength="100" class="form-control" required>
+							<input id="txtNombreInsert" name="nombre" type="text" maxlength="100" class="form-control" required>
 						</div>
 						<div class="form-group">
 							<label>Descripcion</label>
-              <input id="txtDescripcionInsert" type="text" maxlength="100" class="form-control">
+              <input id="txtDescripcionInsert" name="descripcion" type="text" maxlength="100" class="form-control">
 						</div>
             <div class="form-group files" id="files1">
 							<label>Ficha T&eacute;nica Adjuntos:</label>
@@ -109,11 +109,11 @@
 					<div class="modal-body">
 						<div class="form-group">
 							<label>Nombre</label>
-							<input id="txtNombreEdit" type="text" maxlength="100" class="form-control" required>
+							<input id="txtNombreEdit" name="nombre" type="text" maxlength="100" class="form-control" required>
 						</div>
 						<div class="form-group">
 							<label>Descripcion</label>
-              <input id="txtDescripcionEdit" type="text" maxlength="100" class="form-control">
+              <input id="txtDescripcionEdit" name="descripcion" type="text" maxlength="100" class="form-control">
 						</div>
             <div class="form-group files">
 							<label>Ficha T&eacute;nica</label>
@@ -124,6 +124,51 @@
                 </div>
                 <input type="button" class="button form-control" name="" value="+">
 						</div>
+<div class="form-group files">
+  <table>
+      <tr>
+        <td>
+    <?php
+    $colspan = "";
+    //$dir_upload = $_SERVER['DOCUMENT_ROOT']."/phd_mto/uploads/".$seq_ticket_id."/";
+    $dir_upload = "D:/uploads/".$_SESSION['PHD_SUBCARPETA_ADJUNTO_FICHA_TEC']."/".$seq_ticket_id."/";
+    if (file_exists($dir_upload)) {
+    $files = scandir($dir_upload,1);
+    //echo "<pre>";print_r($files); echo "</pre>";die;
+    for ($i=0; $i < count($files); $i++) {
+    	if ($files[$i] != ".." && $files[$i] != ".") {
+    			$nombre_adjunto  = $files[$i];
+
+    				if (strlen ( $nombre_adjunto ) > 0) {
+     					$colspan = "";
+    ?>
+    						 <div style="display:block">
+    							 <input class='boton_bold adjunto'
+    							 				nombre_adjunto='<?php echo $nombre_adjunto?>'
+    											subcarpeta='<?php echo $_SESSION['PHD_SUBCARPETA_ADJUNTO_TICKET']; ?>'
+    											id_ticket="<?php echo $seq_ticket_id ?>"
+    											type='button' value='<?php echo $Download; ?>'
+    											style='cursor:pointer'>
+
+    											<!--<a href="operaciones_ajax.php?accion=download_adjuntos&id_ticket=<?php echo $seq_ticket_id ?>&nombre_archivo=<?php echo $nombre_adjunto?>">Descargar</a>-->
+    								 <b><?php echo $nombre_adjunto; ?></b>
+    					 	 </div>
+    <?php
+    				} else {
+    				 $colspan = "colspan='2'";
+    				}
+    		}
+    	}
+    }
+    ?>
+
+					 <td <?php echo $colspan; ?> >
+					 </td>
+				 </tr>
+     </table>
+</div>
+
+
 					</div>
 					<div class="modal-footer">
 						<input type="button" class="btn btn-default" data-dismiss="modal" value="Cancelar">

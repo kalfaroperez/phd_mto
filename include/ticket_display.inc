@@ -22,7 +22,7 @@ else
     }
 
 require('ant_123_prox.inc');  ## L�nea que muestra <Ant | 1 2 3..... | Prox>
-                             // Line that shows <Prev | 1 2 3 ..... | Prox>
+                         // Line that shows <Prev | 1 2 3 ..... | Prox>
 echo "$titulo
 <div style='position: relative; top: 20px'>
    <form method='post' action='ticket_modif.php' target='_blank'>
@@ -55,14 +55,15 @@ echo "$titulo
 	  $q_palabras=count($a_incidente);
 	  $disp_ape_y_nom=str_replace(chr(10),"<br>",str_replace(chr(13),"",htmlentities($row['ape_y_nom'],ENT_QUOTES,"ISO-8859-1")));
 	  $disp_incidente=str_replace(chr(10),"<br>",str_replace(chr(13),"",htmlentities($row['incidente'],ENT_QUOTES,"ISO-8859-1")));
-	  for ($I=0; $I<$q_palabras; $I++)
-          {$disp_incidente=str_replace($a_incidente[$I],"<span class='resalto'>".$a_incidente[$I]."</span>",$disp_incidente);
-          }
+	  for ($I=0; $I<$q_palabras; $I++){
+      $disp_incidente=str_replace($a_incidente[$I],"<span class='resalto'>".$a_incidente[$I]."</span>",$disp_incidente);
+    }
       $ancho=26+(strlen($row['seq_ticket_id'])*8);
+
 	  echo "<tr $color[$Col]>
       <td> <input class='boton_editar' type='submit' style='width: {$ancho}px;' value={$row['seq_ticket_id']} name='modificar'> </td>
       <td class='p_$row[prioridad]'> $row[prioridad]
-      <td> $fecha
+      <td> $fecha</td>
       <td> $row[usuario_id]
       <td> $row[operador_id]
       <td nowrap> $disp_ape_y_nom

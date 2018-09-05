@@ -403,14 +403,16 @@ function delete_equipo_principal(){
 function insertar_equipo_principal(){
   $nombre = $_POST["nombre"];
   $descripcion = $_POST["descripcion"];
-  $files = $_FILES['adjunto'];
+  $files = $_FILES;
   $estado = "1";
 
-  $resultado = insertarEquipoPrincipal($nombre, $descripcion, $estado);
+  //$resultado = insertarEquipoPrincipal($nombre, $descripcion, $estado);
+  $arr_respuesta = insertarEquipoPrincipal($nombre, $descripcion, $estado);
+  $resultado = $arr_respuesta["resultado"];
+  $id_equipo_princ = $arr_respuesta["id_equipo_princ"];
   if ($resultado == "ok") {
     //Recibe los archivos y el numero de Id del ticket, si aplica
-    guardarArchivoAdjunto_onServer($files, $id_equipo_princ, $_SESSION['PHD__SUBCARPETA_ADJUNTO_FICHA_TEC']);
-    
+    guardarArchivoAdjunto_onServer($files, $id_equipo_princ, $_SESSION['PHD_SUBCARPETA_ADJUNTO_FICHA_TEC']);
   }
 
   echo $resultado;
